@@ -321,11 +321,11 @@ export default function Formcomponent() {
                                     timeLoader ? (<span className="loader"></span>) : (
                                         <div className='flex justify-center items-center flex-wrap gap-2'>
                                             {
-                                                allSlots.map((time) => {
+                                                allSlots.map((time,index) => {
                                                     const isAvailable = availableSlot.includes(time);
 
                                                     return (
-                                                        <div key={time} className='flex justify-center items-center gap-2'>
+                                                        <div key={index} className='flex justify-center items-center gap-2'>
                                                                 {chips(time, !isAvailable)}
                                                         </div>
                                                     );
