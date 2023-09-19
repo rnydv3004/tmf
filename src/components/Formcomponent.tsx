@@ -317,28 +317,26 @@ export default function Formcomponent() {
 
 
                             <div className='flex flex-wrap gap-2 w-full justify-center items-center max-w-sm'>
+    {
+        timeLoader ? (<span className="loader"></span>) : (
+            <div className='flex justify-center items-center flex-wrap gap-2'>
+                {
+                    allSlots.map((time) => {
+                        const isAvailable = availableSlot.includes(time);
 
-                                {
-                                    timeLoader ? (<span className="loader"></span>) : (
-                                        <div className='flex justify-center items-center flex-wrap gap-2'>
-                                            {
-                                                allSlots.map((time) => {
-                                                    const isAvailable = availableSlot.includes(time);
-
-                                                    return (
-                                                        <div key={time} className='flex justify-center items-center gap-2'>
-                                                            <div key={time}>
-                                                                {chips(time, !isAvailable)}
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                })
-                                            }
-                                        </div>
-                                    )
-                                }
-
+                        return (
+                            <div key={time} className='flex justify-center items-center gap-2'>
+                                <div>
+                                    {chips(time, !isAvailable)}
+                                </div>
                             </div>
+                        );
+                    })
+                }
+            </div>
+        )
+    }
+</div>
                         </div>
 
 
