@@ -30,6 +30,11 @@ function sendMail(subject: any, toEmail: any, otpText: any) {
     //         return true;
     //     }
     // });
+
+    return NextResponse.json({
+        message: "Email sent!",
+        status: 200
+    }, { status: 200 });
 }
 
 
@@ -56,11 +61,6 @@ Sincerely,
 The Taxmechanic Team`
 
         sendMail("Taxmechanic Appointment Confirmation", email, otpText)
-
-        return NextResponse.json({
-            message: "Email sent!",
-            status: 200
-        }, { status: 200 });
 
     } catch (error: any) {
         return NextResponse.json({ error: error.message });
