@@ -22,6 +22,7 @@ export default function Formcomponent() {
     const [selectedSlot, setSelectedSlot] = useState('')
     const [calenderLoader, setCalenderLoader] = useState(true)
     const [timeLoader, setTimeLoader] = useState(false)
+    const [slotIdentifier, setSlotIdentifier] = useState(false)
     const [appointmentDetails, setAppointmentDetails] = useState({
         firstName: '',
         lastName: '',
@@ -34,8 +35,9 @@ export default function Formcomponent() {
     })
 
     function checkFields() {
-        if (appointmentDetails.firstName === '' || appointmentDetails.type === '' || appointmentDetails.phone === '' || appointmentDetails.email === '' || appointmentDetails.date === '' || appointmentDetails.time === '') {
+        if (appointmentDetails.firstName === ''  || appointmentDetails.lastName === '' || appointmentDetails.phone === '' || appointmentDetails.email === '' || appointmentDetails.date === '' || appointmentDetails.time === '') {
             toast.error("Please fill required details")
+            console.log(appointmentDetails)
             return false
         }
         return true
@@ -86,7 +88,8 @@ export default function Formcomponent() {
             key={index}
             type='button'
             disabled={state}
-            className={`disabled:bg-slate-500 ${selectedSlot === text ? 'bg-green-600' : 'bg-blue-500'} h-fit w-fit py-1 px-5 rounded-full text-sm transition-transform transform ease-in-out duration-300 hover:scale-105 active:scale-100 select-none cursor-pointer text-white`}
+            className={`disabled:bg-slate-500 disabled:hover:scale-100
+             ${selectedSlot === text ? 'bg-green-600' : 'bg-blue-500'} h-fit w-fit py-1 px-5 rounded-full text-sm transition-transform transform ease-in-out duration-300 hover:scale-105 active:scale-100 select-none cursor-pointer text-white`}
             onClick={(e) => {
                 e.preventDefault()
                 setSelectedSlot(text)
@@ -286,6 +289,7 @@ export default function Formcomponent() {
                                         value={dateValue}
                                         onChange={(newValue: any) => {
                                             setTimeLoader(true)
+                                            setSlotIdentifier(true)
                                             setAppointmentDetails({ ...appointmentDetails, date: newValue.format('YYYY-MM-DD') })
                                             const timeInfo = fetchSlots(newValue.format('YYYY-MM-DD'))
                                             timeInfo.then((data) => {
@@ -311,23 +315,34 @@ export default function Formcomponent() {
 
                             <div className='flex flex-wrap gap-2 w-full justify-center items-center max-w-sm'>
 
-                                {
-                                    timeLoader ? (<span className="loader"></span>) : (
-                                        <div className='flex justify-center items-center flex-wrap gap-2'>
-                                            {
-                                                allSlots.map((time, index) => {
-                                                    const isAvailable = availableSlot.includes(time);
+                                <div className='flex flex-col gap-9 justify-center items-center'>
+                                    {
+                                        timeLoader ? (<span className="loader"></span>) : (
+                                            <div className='flex justify-center items-center flex-wrap gap-2'>
+                                                {
+                                                    allSlots.map((time, index) => {
+                                                        const isAvailable = availableSlot.includes(time);
 
-                                                    return (
-                                                        <div key={index} className='flex justify-center items-center gap-2'>
-                                                            {chips(time, !isAvailable, index)}
-                                                        </div>
-                                                    );
-                                                })
-                                            }
-                                        </div>
-                                    )
+                                                        return (
+                                                            <div key={index} className='flex justify-center items-center gap-2'>
+                                                                {chips(time, !isAvailable, index)}
+                                                            </div>
+                                                        );
+                                                    })
+                                                }
+                                            </div>
+                                        )
+                                    }
+
+
+                                    {
+                                        !slotIdentifier ? ('') : (<div className='text-black flex flex-col justify-center items-start bg-slate-200 rounded-lg w-fit p-4 gap-2'>
+                                        <div className='flex gap-2 justify-center items-center font-semibold text-sm'><div className='w-10 h-5 bg-slate-500 rounded-full'></div> Booked Slot</div>
+                                        <div className='flex gap-2 justify-center items-center font-semibold text-sm'><div className='w-10 h-5 bg-blue-500 rounded-full'></div> Available Slot</div>
+                                        <div className='flex gap-2 justify-center items-center font-semibold text-sm'><div className='w-10 h-5 bg-green-600 rounded-full'></div> Selected Slot</div>
+                                    </div>)
                                 }
+                                </div>
 
                             </div>
                         </div>
