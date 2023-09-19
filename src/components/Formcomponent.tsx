@@ -262,9 +262,9 @@ export default function Formcomponent() {
                                     <div className="block w-fit rounded-tl-md rounded-bl-md border-0 px-1 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                         <label htmlFor="country" className="sr-only">Country</label>
                                         <select id="country" name="country" className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-2 pr-4 text-gray-400 sm:text-sm outline-none">
-                                            <option>US</option>
+                                            {/* <option>US</option> */}
                                             <option>CA</option>
-                                            <option>EU</option>
+                                            {/* <option>EU</option> */}
                                         </select>
                                     </div>
                                     <input type="tel" name="phone-number" id="phone-number" value={appointmentDetails.phone} onChange={(e) => {
