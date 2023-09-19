@@ -16,7 +16,7 @@ export default function Formcomponent() {
     const [dialog, setDialog] = useState(false);
     const [loading, setLoading] = useState(true)
     const [bookingStatus, setBookingStatus] = useState(true)
-    const [dateSlots, setDateSlots]:any = useState()
+    const [dateSlots, setDateSlots]: any = useState()
     const [allSlots, setAllSlots] = useState([])
     const [availableSlot, setAvailableSlot] = useState([])
     const [selectedSlot, setSelectedSlot] = useState('')
@@ -68,9 +68,10 @@ export default function Formcomponent() {
                 // Handle error if the response status is not OK (e.g., 404, 500).
                 toast.error('Error in sending mail. Our team will connect you by phone')
                 throw new Error(`Error fetching data. Status: ${response.status}`);
-            }
+            } else {
 
-            toast.success('Confirmation email sent')
+                toast.success('Confirmation email sent')
+            }
 
             return data;
 
@@ -322,12 +323,12 @@ export default function Formcomponent() {
                                     timeLoader ? (<span className="loader"></span>) : (
                                         <div className='flex justify-center items-center flex-wrap gap-2'>
                                             {
-                                                allSlots.map((time,index) => {
+                                                allSlots.map((time, index) => {
                                                     const isAvailable = availableSlot.includes(time);
 
                                                     return (
                                                         <div key={index} className='flex justify-center items-center gap-2'>
-                                                                {chips(time, !isAvailable,index)}
+                                                            {chips(time, !isAvailable, index)}
                                                         </div>
                                                     );
                                                 })
