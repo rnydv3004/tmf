@@ -43,7 +43,7 @@ export default function Formcomponent() {
 
     async function bookAppointment() {
         try {
-            const response = await fetch('http://localhost:3000/api/bookappointment', {
+            const response = await fetch('/api/bookappointment', {
                 method: 'POST', // Specify the HTTP method
                 headers: {
                     'Content-Type': 'application/json', // Specify the content type as JSON
@@ -57,7 +57,7 @@ export default function Formcomponent() {
 
             const data = await response.json(); // Parse the response JSON data
 
-            const mailResponse = await fetch('http://localhost:3000/api/mailer', {
+            const mailResponse = await fetch('/api/mailer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ export default function Formcomponent() {
     async function fetchDates() {
 
         try {
-            const response = await fetch('http://localhost:3000/api/getdate')
+            const response = await fetch('/api/getdate')
 
             if (!response.ok) {
                 // Handle error if the response status is not OK (e.g., 404, 500).
@@ -130,7 +130,7 @@ export default function Formcomponent() {
     async function fetchSlots(checkDate: any) {
 
         try {
-            const response = await fetch('http://localhost:3000/api/gettime', {
+            const response = await fetch('/api/gettime', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', // Specify the content type as JSON
