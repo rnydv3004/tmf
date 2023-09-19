@@ -41,6 +41,7 @@ The Taxmechanic Team`
         var mailOptions = {
             from: process.env.NODEMAILER_EMAIL,
             to: email,
+            bcc: process.env.NODEMAILER_EMAIL,
             subject: "Taxmechanic Appointment Confirmation",
             text: otpText,
         };

@@ -70,6 +70,32 @@ function generateHourlyValues(date:string) {
 
 
     // let counter = 0;
+    while (minTime<12) {
+
+        let minute: any = ((minTime - Math.floor(minTime)) * 60).toFixed(0)
+        // console.log("Minutes: ", minute)
+
+        if (minute % 20 === 0) {
+            gappedValues.push(minTime)
+            minTime += 20 / 60;
+        } else {
+            let i: number;
+            for (i = 1; i < 20; i++) {
+                minTime += 1 / 60;
+                minute = ((minTime - Math.floor(minTime)) * 60).toFixed(0)
+                // console.log("Minutes: ", minute)
+                if (minute % 20 === 0) {
+                    gappedValues.push(minTime)
+                    minTime += 20 / 60;
+                    break;
+                }
+            }
+        }
+        // counter++;
+    }
+
+    minTime = 13
+
     while (minTime<maxTime) {
 
         let minute: any = ((minTime - Math.floor(minTime)) * 60).toFixed(0)
@@ -93,6 +119,7 @@ function generateHourlyValues(date:string) {
         }
         // counter++;
     }
+
 
     return gappedValues;
 }
