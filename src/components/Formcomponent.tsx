@@ -325,7 +325,7 @@ export default function Formcomponent() {
                                                     const isAvailable = availableSlot.includes(time);
 
                                                     return (
-                                                        <div className='flex justify-center items-center gap-2'>
+                                                        <div key={time} className='flex justify-center items-center gap-2'>
                                                             <div key={time}>
                                                                 {chips(time, !isAvailable)}
                                                             </div>
