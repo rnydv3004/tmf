@@ -4,32 +4,32 @@ var nodemailer = require("nodemailer");
 
 function sendMail(subject: any, toEmail: any, otpText: any) {
 
-    console.log("Hi this is a mail")
+    console.log("Initializing a Mail...")
 
-    // var transporter = nodemailer.createTransport({
-    //     service: "gmail",
-    //     auth: {
-    //         user: process.env.NODEMAILER_EMAIL,
-    //         pass: process.env.NODEMAILER_PW,
-    //     },
-    // });
+    var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: process.env.NODEMAILER_EMAIL,
+            pass: process.env.NODEMAILER_PW,
+        },
+    });
 
-    // var mailOptions = {
-    //     from: process.env.NODEMAILER_EMAIL,
-    //     to: toEmail,
-    //     subject: "Taxmechanic Appointment Confirmation",
-    //     text: otpText,
-    // };
+    var mailOptions = {
+        from: process.env.NODEMAILER_EMAIL,
+        to: toEmail,
+        subject: "Taxmechanic Appointment Confirmation",
+        text: otpText,
+    };
 
-    // transporter.sendMail(mailOptions, function (error: string | undefined, info: any) {
-    //     if (error) {
-    //         console.log('Error occured while sending mail:', error)
-    //         throw new Error(error);
-    //     } else {
-    //         console.log("Email Sent to ",toEmail);
-    //         return true;
-    //     }
-    // });
+    transporter.sendMail(mailOptions, function (error: string | undefined, info: any) {
+        if (error) {
+            console.log('Error occured while sending mail:', error)
+            throw new Error(error);
+        } else {
+            console.log("Email Sent to ",toEmail);
+            return true;
+        }
+    });
 
     return NextResponse.json({
         message: "Email sent!",
