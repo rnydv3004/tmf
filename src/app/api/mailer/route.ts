@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 var nodemailer = require("nodemailer");
 
-export async function sendMail(subject: any, toEmail: any, otpText: any) {
+function sendMail(subject: any, toEmail: any, otpText: any) {
 
     var transporter = nodemailer.createTransport({
         service: "gmail",
