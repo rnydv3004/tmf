@@ -80,8 +80,9 @@ export default function Formcomponent() {
         }
     }
 
-    function chips(text: string, state: boolean) {
+    function chips(text: string, state: boolean, index: number) {
         return (<button
+            key={index}
             type='button'
             disabled={state}
             className={`disabled:bg-slate-500 ${selectedSlot === text ? 'bg-green-600' : 'bg-blue-500'} h-fit w-fit py-1 px-5 rounded-full text-sm transition-transform transform ease-in-out duration-300 hover:scale-105 active:scale-100 select-none cursor-pointer text-white`}
@@ -326,7 +327,7 @@ export default function Formcomponent() {
 
                                                     return (
                                                         <div key={index} className='flex justify-center items-center gap-2'>
-                                                                {chips(time, !isAvailable)}
+                                                                {chips(time, !isAvailable,index)}
                                                         </div>
                                                     );
                                                 })
