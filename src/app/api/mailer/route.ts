@@ -21,9 +21,10 @@ function sendMail(subject: any, toEmail: any, otpText: any) {
 
     transporter.sendMail(mailOptions, function (error: string | undefined, info: any) {
         if (error) {
+            console.log('Error occured while sending mail:', error)
             throw new Error(error);
         } else {
-            // console.log("Email Sent");
+            console.log("Email Sent to ",toEmail);
             return true;
         }
     });
