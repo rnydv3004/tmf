@@ -16,7 +16,7 @@ export default function Formcomponent() {
     const [dialog, setDialog] = useState(false);
     const [loading, setLoading] = useState(true)
     const [bookingStatus, setBookingStatus] = useState(true)
-    const [dateSlots, setDateSlots] = useState({})
+    const [dateSlots, setDateSlots]:any = useState()
     const [allSlots, setAllSlots] = useState([])
     const [availableSlot, setAvailableSlot] = useState([])
     const [selectedSlot, setSelectedSlot] = useState('')
@@ -56,13 +56,13 @@ export default function Formcomponent() {
             }
 
             const data = await response.json(); // Parse the response JSON data
-            
+
             const mailResponse = await fetch('http://localhost:3000/api/mailer', {
-                method: 'POST', 
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(appointmentDetails), 
+                body: JSON.stringify(appointmentDetails),
             });
             if (!mailResponse.ok) {
                 // Handle error if the response status is not OK (e.g., 404, 500).
@@ -76,7 +76,7 @@ export default function Formcomponent() {
 
         } catch (error) {
             // console.error("Error fetching data:", error);
-            throw error; 
+            throw error;
         }
     }
 
@@ -285,7 +285,7 @@ export default function Formcomponent() {
 
                         <div className='flex justify-center items-center flex-col border-2 py-5 mt-10 rounded-lg'>
 
-                            {calenderLoader ? (<div className='flex flex-col gap-2 justify-center items-center'><span className="loader absolute w-full h-full top-0 bottom-0 left-0 right-0 z-50"></span><span className='text-xs font-semibold text-amber-600'>Loading Avaialble Slots...</span></div>) : (<div className='bg-white rounded-lg p-0 text-black font-semibold text-xs'>
+                            {calenderLoader ? (<div className='flex flex-col gap-2 justify-center items-center'><span className="loader absolute w-full h-full top-0 bottom-0 left-0 right-0 z-50"></span><span className='text-xs font-semibold text-amber-600'>Loading Available Slots...</span></div>) : (<div className='bg-white rounded-lg p-0 text-black font-semibold text-xs'>
 
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DateCalendar
@@ -316,28 +316,26 @@ export default function Formcomponent() {
 
 
                             <div className='flex flex-wrap gap-2 w-full justify-center items-center max-w-sm'>
+                                {timeLoader ? (
+                                    <span className="loader"></span>
+                                ) : (
+                                    <div className='flex justify-center items-center flex-wrap gap-2'>
+                                        {allSlots.map((time) => {
+                                            const isAvailable = availableSlot.includes(time);
 
-                                {
-                                    timeLoader ? (<span className="loader"></span>) : (
-                                        <div className='flex justify-center items-center flex-wrap gap-2'>
-                                            {
-                                                allSlots.map((time) => {
-                                                    const isAvailable = availableSlot.includes(time);
-
-                                                    return (
-                                                        <div key={time} className='flex justify-center items-center gap-2'>
-                                                            <div key={time}>
-                                                                {chips(time, !isAvailable)}
-                                                            </div>
-                                                        </div>
-                                                    );
-                                                })
-                                            }
-                                        </div>
-                                    )
-                                }
-
+                                            return (
+                                                <div key={time} className='flex justify-center items-center gap-2'>
+                                                    <div>
+                                                        {chips(time, !isAvailable)}
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
                             </div>
+
+
                         </div>
 
 
