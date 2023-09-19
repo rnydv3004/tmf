@@ -227,62 +227,54 @@ export default function Formcomponent() {
                                     <input type="text" name="first-name" id="first-name" value={appointmentDetails.firstName} autoComplete="given-name" onChange={(e) => {
                                         e.preventDefault()
                                         setAppointmentDetails({ ...appointmentDetails, firstName: e.target.value })
-                                    }} className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                    }} className="block w-full rounded-md border-2 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                 </div>
                             </div>
                             <div>
-                                <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
+                                <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-900">Last name <span className='text-red-500'>*</span></label>
                                 <div className="mt-2.5">
                                     <input type="text" name="last-name" id="last-name" value={appointmentDetails.lastName} onChange={(e) => {
                                         e.preventDefault()
                                         setAppointmentDetails({ ...appointmentDetails, lastName: e.target.value })
-                                    }} autoComplete="family-name" className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                    }} autoComplete="family-name" className="block w-full rounded-md border-2 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                 </div>
                             </div>
-                            <div className="sm:col-span-2">
+                            {/* <div className="sm:col-span-2">
                                 <label htmlFor="company" className="block text-sm font-semibold leading-6 text-gray-900">Company/Individual <span className='text-red-500'>*</span></label>
                                 <div className="mt-2.5">
                                     <input type="text" value={appointmentDetails.type} name="company" id="company" onChange={(e) => {
                                         e.preventDefault()
                                         setAppointmentDetails({ ...appointmentDetails, type: e.target.value })
-                                    }} autoComplete="organization" className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                    }} autoComplete="organization" className="block w-full rounded-md border-2 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="sm:col-span-2">
                                 <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">Email <span className='text-red-500'>*</span></label>
                                 <div className="mt-2.5">
                                     <input type="email" name="email" value={appointmentDetails.email} id="email" onChange={(e) => {
                                         e.preventDefault()
                                         setAppointmentDetails({ ...appointmentDetails, email: e.target.value })
-                                    }} autoComplete="email" className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                    }} autoComplete="email" className="block w-full rounded-md border-2 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                 </div>
                             </div>
                             <div className="sm:col-span-2">
                                 <label htmlFor="phone-number" className="block text-sm font-semibold leading-6 text-gray-900">Phone number <span className='text-red-500'>*</span></label>
                                 <div className="relative mt-2.5 flex">
-                                    <div className="block w-fit rounded-tl-md rounded-bl-md border-0 px-1 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                        <label htmlFor="country" className="sr-only">Country</label>
-                                        <select id="country" name="country" className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-2 pr-4 text-gray-400 sm:text-sm outline-none">
-                                            {/* <option>US</option> */}
-                                            <option>CA</option>
-                                            {/* <option>EU</option> */}
-                                        </select>
-                                    </div>
                                     <input type="tel" name="phone-number" id="phone-number" value={appointmentDetails.phone} onChange={(e) => {
                                         e.preventDefault()
                                         setAppointmentDetails({ ...appointmentDetails, phone: e.target.value })
-                                    }} autoComplete="tel" className="block w-full rounded-tr-md rounded-br-md border-0 px-3.5 py-2  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                    }} autoComplete="tel" className="block w-full rounded-md border-2 px-3.5 py-2  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                 </div>
                             </div>
-                            <div className="sm:col-span-2">
+                            {/* <div className="sm:col-span-2">
                                 <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">Message</label>
                                 <div className="mt-2.5">
                                     <textarea value={appointmentDetails.message} onChange={(e) => {
                                         e.preventDefault()
                                         setAppointmentDetails({ ...appointmentDetails, message: e.target.value })
-                                    }} name="message" id="message" rows={4} className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                                    }} name="message" id="message" rows={4} className="block w-full rounded-md border-2 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className='flex justify-center items-center flex-col border-2 py-5 mt-10 rounded-lg'>
