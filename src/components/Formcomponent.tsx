@@ -45,7 +45,7 @@ export default function Formcomponent() {
         date: '',
         time: '',
         clienttime: '',
-        timezone: 'America/New_York'
+        timezone: 'America/Toronto'
     })
 
     const handleTimeZoneChange = (event: { target: { value: any; }; }) => {
@@ -135,9 +135,13 @@ export default function Formcomponent() {
     async function fetchDates() {
 
         try {
-            
+
             const myZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             const today = DateTime.now().setZone(myZone).toFormat('yyyy-MM-dd')
+
+
+            setAppointmentDetails({ ...appointmentDetails, timezone: myZone })
+
 
             const response = await fetch('/api/getdate', {
                 method: 'POST',
@@ -171,9 +175,6 @@ export default function Formcomponent() {
             setDateSlots(data)
             setCalenderLoader(false)
         })
-
-        const systemTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        setAppointmentDetails({...appointmentDetails, timezone: systemTimeZone})
 
     }, [])
 
@@ -397,7 +398,7 @@ export default function Formcomponent() {
                                     {
                                         !calenderLoader ? !timeLoader ? (
 
-                                            <div className={`${noSlotIdentifier?'':'hidden'} flex justify-center items-center flex-wrap gap-2`}>
+                                            <div className={`${noSlotIdentifier ? '' : 'hidden'} flex justify-center items-center flex-wrap gap-2`}>
                                                 {
                                                     allSlots.length === 0 ? (<p className='text-slate-700 font-semibold text-xs bg-slate-100 p-2 rounded-md flex-wrap'> No available slot today due to holiday/weekend</p>) : ('')
                                                 }
