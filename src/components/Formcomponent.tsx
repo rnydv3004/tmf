@@ -308,10 +308,6 @@ export default function Formcomponent() {
                                 </LocalizationProvider>
                             </div>)}
 
-
-
-
-
                             <div className='flex flex-wrap gap-2 w-full justify-center items-center max-w-sm'>
 
                                 <div className='flex flex-col gap-9 justify-center items-center'>
