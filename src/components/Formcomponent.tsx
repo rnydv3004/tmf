@@ -8,6 +8,18 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
+import { DateTime } from 'luxon';
+
+const timeZones = [
+    'Asia/Kolkata',
+    'America/Toronto',
+    'America/New_York',
+    'America/Vancouver',
+    'America/Edmonton',
+    'America/Winnipeg',
+    'America/St_Johns',
+    'America/Halifax'
+];
 
 export default function Formcomponent() {
 
@@ -22,6 +34,7 @@ export default function Formcomponent() {
     const [calenderLoader, setCalenderLoader] = useState(true)
     const [timeLoader, setTimeLoader] = useState(false)
     const [slotIdentifier, setSlotIdentifier] = useState(false)
+    const [noSlotIdentifier, setNoSlotIdentifier] = useState(false)
     const [appointmentDetails, setAppointmentDetails] = useState({
         firstName: '',
         lastName: '',
@@ -30,11 +43,18 @@ export default function Formcomponent() {
         phone: '',
         message: '',
         date: '',
-        time: ''
+        time: '',
+        clienttime: '',
+        timezone: 'America/New_York'
     })
 
+    const handleTimeZoneChange = (event: { target: { value: any; }; }) => {
+        setAppointmentDetails({ ...appointmentDetails, timezone: event.target.value });
+    };
+
     function checkFields() {
-        if (appointmentDetails.firstName === ''  || appointmentDetails.lastName === '' || appointmentDetails.phone === '' || appointmentDetails.email === '' || appointmentDetails.date === '' || appointmentDetails.time === '') {
+        // console.log(appointmentDetails)
+        if (appointmentDetails.firstName === '' || appointmentDetails.lastName === '' || appointmentDetails.phone === '' || appointmentDetails.email === '' || appointmentDetails.date === '' || appointmentDetails.time === '') {
             toast.error("Please fill required details")
             console.log(appointmentDetails)
             return false
@@ -83,6 +103,18 @@ export default function Formcomponent() {
     }
 
     function chips(text: string, state: boolean, index: number) {
+
+        const serverTimeZone = 'America/Toronto';
+        const ESTTimeZone = appointmentDetails.timezone;
+
+        const inputTime = text;
+
+        const fromTime = DateTime.fromFormat(inputTime, 'HH:mm', { zone: serverTimeZone });
+
+        const toTime = fromTime.setZone(ESTTimeZone);
+
+        const resultantTime = toTime.toFormat('HH:mm');
+
         return (<button
             key={index}
             type='button'
@@ -92,18 +124,30 @@ export default function Formcomponent() {
             onClick={(e) => {
                 e.preventDefault()
                 setSelectedSlot(text)
-                setAppointmentDetails({ ...appointmentDetails, time: text })
+                setAppointmentDetails({ ...appointmentDetails, time: text, clienttime: resultantTime })
                 // console.log("Seleted slot:", selectedSlot)
             }}
         >
-            {text}
+            {resultantTime}
         </button>)
     }
 
     async function fetchDates() {
 
         try {
-            const response = await fetch('/api/getdate')
+            
+            const myZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const today = DateTime.now().setZone(myZone).toFormat('yyyy-MM-dd')
+
+            const response = await fetch('/api/getdate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Specify the content type as JSON
+                },
+                body: JSON.stringify({
+                    "checkdate": today
+                })
+            })
 
             if (!response.ok) {
                 // Handle error if the response status is not OK (e.g., 404, 500).
@@ -127,6 +171,9 @@ export default function Formcomponent() {
             setDateSlots(data)
             setCalenderLoader(false)
         })
+
+        const systemTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        setAppointmentDetails({...appointmentDetails, timezone: systemTimeZone})
 
     }, [])
 
@@ -218,7 +265,7 @@ export default function Formcomponent() {
                                 sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 800px" />
                         </div>
                         {/* <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Taxmechanic</h2> */}
-                        <p className="mt-2 text-sm md:text-base leading-5 text-gray-600">Book a free Appointment with our one of best tax consultant</p>
+                        <p className="mt-2 text-sm md:text-base leading-5 text-gray-600">Book a free Appointment with our one of best tax consultants</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="mx-auto mt-8 max-w-xl sm:mt-12">
@@ -281,19 +328,37 @@ export default function Formcomponent() {
 
                         <div className='flex justify-center items-center flex-col border-2 py-5 mt-10 rounded-lg'>
 
+                            <div className='flex justify-center text-center m-4'>
+                                <h6 className='text-blue-500 font-semibold text-xs flex justify-center items-center gap-1'>
+                                    Your Time Zone:
+                                    <select
+                                        value={appointmentDetails.timezone}
+                                        onChange={handleTimeZoneChange}
+                                        className='p-2 bg-white border-2 border-slate-600 rounded-md text-black'
+                                    >
+                                        {timeZones.map((zone, index) => (
+                                            <option key={index} value={zone}>
+                                                {zone}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </h6>
+                            </div>
+
                             {calenderLoader ? (<div className='flex flex-col gap-2 justify-center items-center'><span className="loader absolute w-full h-full top-0 bottom-0 left-0 right-0 z-50"></span><span className='text-xs font-semibold text-amber-600'>Loading Available Slots...</span></div>) : (<div className='bg-white rounded-lg p-0 text-black font-semibold text-xs'>
 
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DateCalendar
                                         value={dateValue}
                                         onChange={(newValue: any) => {
+                                            setNoSlotIdentifier(true)
                                             setTimeLoader(true)
                                             setSlotIdentifier(true)
                                             setAppointmentDetails({ ...appointmentDetails, date: newValue.format('YYYY-MM-DD') })
                                             const timeInfo = fetchSlots(newValue.format('YYYY-MM-DD'))
                                             timeInfo.then((data) => {
                                                 setAllSlots(data.value)
-                                                setAvailableSlot(data.availableSlots)
+                                                setAvailableSlot(data.bookedslots)
                                                 setTimeLoader(false)
                                                 // console.log("All slots:", allSlots)
                                                 // console.log("Av slots:", availableSlot)
@@ -320,7 +385,7 @@ export default function Formcomponent() {
 
                                                         return (
                                                             <div key={index} className='flex justify-center items-center gap-2'>
-                                                                {chips(time, !isAvailable, index)}
+                                                                {chips(time, isAvailable, index)}
                                                             </div>
                                                         );
                                                     })
@@ -329,14 +394,24 @@ export default function Formcomponent() {
                                         )
                                     }
 
+                                    {
+                                        !calenderLoader ? !timeLoader ? (
+
+                                            <div className={`${noSlotIdentifier?'':'hidden'} flex justify-center items-center flex-wrap gap-2`}>
+                                                {
+                                                    allSlots.length === 0 ? (<p className='text-slate-700 font-semibold text-xs bg-slate-100 p-2 rounded-md flex-wrap'> No available slot today due to holiday/weekend</p>) : ('')
+                                                }
+                                            </div>
+                                        ) : ('') : ('')
+                                    }
 
                                     {
                                         !slotIdentifier ? ('') : (<div className='text-black flex flex-col justify-center items-start bg-slate-200 rounded-lg w-fit p-4 gap-2'>
-                                        <div className='flex gap-2 justify-center items-center font-semibold text-sm'><div className='w-10 h-5 bg-slate-500 rounded-full'></div> Booked Slot</div>
-                                        <div className='flex gap-2 justify-center items-center font-semibold text-sm'><div className='w-10 h-5 bg-blue-500 rounded-full'></div> Available Slot</div>
-                                        <div className='flex gap-2 justify-center items-center font-semibold text-sm'><div className='w-10 h-5 bg-green-600 rounded-full'></div> Selected Slot</div>
-                                    </div>)
-                                }
+                                            <div className='flex gap-2 justify-center items-center font-semibold text-sm'><div className='w-10 h-5 bg-slate-500 rounded-full'></div> Booked Slot</div>
+                                            <div className='flex gap-2 justify-center items-center font-semibold text-sm'><div className='w-10 h-5 bg-blue-500 rounded-full'></div> Available Slot</div>
+                                            <div className='flex gap-2 justify-center items-center font-semibold text-sm'><div className='w-10 h-5 bg-green-600 rounded-full'></div> Selected Slot</div>
+                                        </div>)
+                                    }
                                 </div>
 
                             </div>

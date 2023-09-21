@@ -6,20 +6,20 @@ export async function POST(request: NextRequest) {
     try {
 
         const reqBody = await request.json()
-        const { firstName, email, date, time } = reqBody
+        const { firstName, email, date, clienttime, time } = reqBody
 
         console.log("Sending mail to ", email)
-        console.log(`First Name: ${firstName},Email: ${email},Date: ${date},Time: ${time}`)
+        console.log(`First Name: ${firstName},Email: ${email},Date: ${date},Time: ${clienttime}`)
 
         const otpText = `Hey ${firstName}
 
 
-We would like to inform you that a complimentary consultation appointment has been scheduled with one of our tax professionals at ${date} at ${time}. The meeting will take place online, and you can access the meeting link provided below. We appreciate your appointment booking.
+We would like to inform you that a complimentary consultation appointment has been scheduled with one of our tax professionals at ${date} at ${clienttime}. The meeting will take place online, and you can access the meeting link provided below. We appreciate your appointment booking.
         
 Appointment Details:
         
 Date: ${date}
-Time: ${time}
+Time: ${clienttime} (${time} EST)
 Location: Online
 Meeting Link: https://meet.google.com/fks-hpzs-jwa
 

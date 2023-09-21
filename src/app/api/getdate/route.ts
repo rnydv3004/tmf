@@ -1,8 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { addDays, format, getDay, isSameDay } from 'date-fns';
 import { initializeApp } from "firebase/app";
 import { get, getDatabase, ref } from "firebase/database";
 import { parseISO } from "date-fns/esm";
+import { DateTime } from 'luxon';
+
 
 const firebaseConfig = {
     databaseURL: process.env.DB_URL,
@@ -13,7 +15,7 @@ const fbApp = initializeApp(firebaseConfig);
 
 // Initialize Realtime Database and get a reference to the service
 const db = getDatabase();
-let holidayList: (string | number | Date)[]=[];
+let holidayList: (string | number | Date)[] = [];
 
 async function readHolidays() {
     try {
@@ -41,7 +43,7 @@ function checkHoliday(date: any): any {
 
     let proposedDate = date;
     // console.log("Proposed date in checkholiday:",proposedDate)
-    
+
     if (holidayList.indexOf(proposedDate) !== -1) {
         // console.log("This date has a holiday");
         proposedDate = format(addDays(parseISO(proposedDate), 1), 'yyyy-MM-dd');
@@ -50,7 +52,7 @@ function checkHoliday(date: any): any {
         proposedDate = checkHoliday(proposedDate);
         // Now, check for weekend
         proposedDate = checkWeekend(proposedDate);
-    } 
+    }
     // else {
     //     // console.log("No Holiday", proposedDate);
     // }
@@ -87,23 +89,24 @@ function checkWeekend(date: any) {
     return proposedDate; // Return the updated proposedDate
 }
 
-export async function GET() {
+export async function POST(request: NextRequest) {
+
     try {
         await readHolidays()
-        // console.log("holidays:", holiday)
-
-        // checkdates()
-        const today = format(addDays(new Date(),1), 'yyyy-MM-dd');
-        let day1 = checkHoliday(today);
+        const reqBody = await request.json()
+        const { checkdate } = reqBody
+                
+        console.log("checkdate:",checkdate)
+        let day1 = checkHoliday(DateTime.fromFormat(checkdate,'yyyy-MM-dd').plus({ days: 1 }).toFormat('yyyy-MM-dd'));
         day1 = checkWeekend(day1)
-        const day1formatted = parseISO(day1)
-        let day2 = checkHoliday(format(addDays(day1formatted,1), 'yyyy-MM-dd'));
+        let day2 = checkHoliday( DateTime.fromFormat(day1,'yyyy-MM-dd').plus({ days: 10 }).toFormat('yyyy-MM-dd'));
+        console.log("Lastday:",day2)
         day2 = checkWeekend(day2)
 
         return NextResponse.json({
             first: day1,
             second: day2,
-            today: today,
+            checkdate: checkdate,
             holidaysfb: holidayList
         }, { status: 200 });
 
@@ -111,3 +114,4 @@ export async function GET() {
         return NextResponse.json({ error: error.message });
     }
 }
+
