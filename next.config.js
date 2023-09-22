@@ -5,8 +5,8 @@ module.exports = nextConfig;
 
 module.exports = {
   env: {
-    NODEMAILER_EMAIL: "taryan3087@gmail.com",
-    NODEMAILER_PW: "iouz mgiw krir fruh",
+    NODEMAILER_EMAIL: "sunny@taxmechanic.ca",
+    NODEMAILER_PW: "fwlx zgby zkzs tpbo",
     DB_URL: "https://appointments-b9eae-default-rtdb.firebaseio.com/",
   },
   async headers() {

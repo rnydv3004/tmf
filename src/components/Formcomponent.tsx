@@ -62,6 +62,38 @@ export default function Formcomponent() {
         return true
     }
 
+
+    async function addEvent(firstName: any, lastName: any, date: any, time: any) {
+        try {
+            const response = await fetch('/api/addevent', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName: firstName,
+                    lastName: lastName,
+                    date: date,
+                    time: time
+                }),
+            });
+
+            // You can handle the response here if needed
+            if (!response.ok) {
+                // Handle non-successful response (e.g., error handling)
+                console.error('Failed to add event:', response.statusText);
+            } else {
+                // Event added successfully
+                toast.success('Confirmation email sent')
+                console.log('Event added successfully');
+            }
+        } catch (error) {
+            // Handle any errors that occurred during the fetch or await
+            console.error('Error adding event:', error);
+            throw error; // Re-throw the error to handle it elsewhere if needed
+        }
+    }
+
     async function bookAppointment() {
         try {
             const response = await fetch('/api/bookappointment', {
@@ -91,7 +123,8 @@ export default function Formcomponent() {
                 throw new Error(`Error fetching data. Status: ${response.status}`);
             } else {
 
-                toast.success('Confirmation email sent')
+                addEvent(appointmentDetails.firstName, appointmentDetails.lastName,appointmentDetails.date,appointmentDetails.time)
+
             }
 
             return data;

@@ -49,8 +49,6 @@ async function saveData(fullNameReq: string, lastNameReq: string, typeReq: strin
 
     try {
         // Initialize Firebase
-
-
         set(ref(db, `appointments/${dateReq}/${phoneReq}`), {
             fullName: fullNameReq,
             lastName: lastNameReq,
@@ -77,6 +75,8 @@ export async function POST(request: NextRequest) {
 
         saveData(firstName, lastName, type, email, phone, message, date, time)
 
+        
+
         return NextResponse.json({
             message: "Appointment Booked Successfully!",
             status : 200
@@ -99,3 +99,6 @@ export async function GET() {
         return NextResponse.json({ error: error.message });
     }
 }
+
+
+
