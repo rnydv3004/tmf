@@ -20,19 +20,14 @@ export async function POST(request: NextRequest) {
             body: _body
         };
 
-        try {
-            const response = await fetch({process.env.BEEHIIV_PUB}, options);
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.log("Error in adding subscription");
-            console.error(error);
-            throw error
-        }
-
+        const response = await fetch({process.env.BEEHIIV_PUB}, options);
+        const data = await response.json();
+        console.log(data);
         return NextResponse.json({ message: "Email added" }, { status: 200 })
 
     } catch (error: any) {
+        console.log("Error in adding subscription");
+        console.error(error);
         return NextResponse.json({ error: "This is an error:" }, { status: 401 })
     }
 }
