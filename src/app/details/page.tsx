@@ -49,13 +49,12 @@ export default function Page() {
     })
     .catch((error) => {
       console.error("Error:", error);
-    });
+    })
   
-    
   return (
     <div className='flex flex-col gap-2 h-[calc(100vh-4rem)] w-full bg-white p-2'>
       <p className='text-sm font-semibold text-slate-800 pl-4'>Today's Schedule: <span className='p-1 px-2 text-xs bg-slate-500 rounded-full text-white'>{today}</span></p>
-      <div className='h-full w-full flex overflow-scroll'><AppointmentDetails date={today} details={transformedData} /></div>
+      <div className="h-full w-full flex overflow-scroll"><AppointmentDetails date={today} details={transformedData} /></div>
     </div>
   );
 }

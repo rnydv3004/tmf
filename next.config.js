@@ -9,7 +9,9 @@ module.exports = {
     NODEMAILER_PW: "fwlx zgby zkzs tpbo",
     DB_URL: "https://appointments-b9eae-default-rtdb.firebaseio.com/",
     USER_DETAILS_ID: 'admin',
-    USER_PASSWORD: "Admin24680#"
+    USER_PASSWORD: "Admin24680#",
+    BEEHIIV_API: 'MsKmrKxvyMJVMp87s4cWgG0uUJLlLhmVDcRdsXs6kDG35fRKbKf8UhrvCcgl8HM',
+    BEEHIVE_PUB: 'pub_7472b5fa-5190-4893-a6ee-c6f6a6695c8d'
   },
   async headers() {
     return [
