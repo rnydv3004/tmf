@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
         };
 
         const auth = new google.auth.GoogleAuth({
-            keyFile: 'tmf/master/avid-day-281003-fa0ab3903368.json',
+            keyFile: '../../tmf/master/avid-day-281003-fa0ab3903368.json',
             scopes: 'https://www.googleapis.com/auth/calendar', //full access to edit calendar
         });
 
