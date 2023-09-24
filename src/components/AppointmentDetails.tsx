@@ -57,35 +57,3 @@ export default function AppointmentDetails(props: any) {
         </div>
     );
 }
-
-async function getData(date: any) {
-
-    try {
-
-        const reqData = {
-            checkdate : date
-        }
-
-        const response = await fetch('/api/getdata', {
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'application/json', // Specify the content type as JSON
-            },
-            body: JSON.stringify(reqData), // Convert the object to JSON and set it as the body
-        });
-        
-        console.log("Reached")
-        if (!response.ok) {
-            throw new Error(`Error fetching data. Status: ${response.status}`);
-        }
-
-
-        const data = await response.json(); // Parse the response JSON data
-        console.log("Retrieved Data:",data)
-
-    } catch (error) {
-        throw new Error('Function not implemented.');
-    }
-
-}
-
