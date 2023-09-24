@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 
 export default function Page() {
 
-  const [transformedData, setTransformmedData]:any = useState([])
+  const [transformedData, setTransformmedData]:any = useState('')
   const now = DateTime.now().setZone('America/Toronto');
   const today = now.toFormat('yyyy-MM-dd');
   // console.log("Today is:", today);
@@ -38,7 +38,7 @@ export default function Page() {
         date: details.date || '',
         time: details.time || ''
       }));
-  
+    
       // console.log("Transformed data:", transformedDataTemp);
       
       // Ensure that setTransformedData is correctly defined and updates the state
@@ -53,8 +53,8 @@ export default function Page() {
   
   return (
     <div className='flex flex-col gap-2 h-[calc(100vh-4rem)] w-full bg-white p-2'>
-      <p className='text-sm font-semibold text-slate-800 pl-4'>Today's Schedule: <span className='p-1 px-2 text-xs bg-slate-500 rounded-full text-white'>{today}</span></p>
-      <div className="h-full w-full flex overflow-scroll"><AppointmentDetails date={today}  /></div>
+      <p className='text-sm font-semibold text-slate-800 pl-4'>Date: <span className='p-1 px-2 text-xs bg-slate-500 rounded-full text-white'>{today}</span></p>
+      <div className="h-full w-full flex overflow-scroll"><AppointmentDetails date={today} details={transformedData} /></div>
     </div>
   );
-} 
+}
