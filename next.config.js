@@ -8,6 +8,8 @@ module.exports = {
     NODEMAILER_EMAIL: "sunny@taxmechanic.ca",
     NODEMAILER_PW: "fwlx zgby zkzs tpbo",
     DB_URL: "https://appointments-b9eae-default-rtdb.firebaseio.com/",
+    USER_DETAILS_ID: 'admin',
+    USER_PASSWORD: "Admin24680#"
   },
   async headers() {
     return [

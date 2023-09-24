@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import { DateTime } from 'luxon';
+import { addSubscription } from '@/helper/subscribe';
 
 const timeZones = [
     'Asia/Kolkata',
@@ -35,6 +36,7 @@ export default function Formcomponent() {
     const [timeLoader, setTimeLoader] = useState(false)
     const [slotIdentifier, setSlotIdentifier] = useState(false)
     const [noSlotIdentifier, setNoSlotIdentifier] = useState(false)
+
     const [appointmentDetails, setAppointmentDetails] = useState({
         firstName: '',
         lastName: '',
@@ -109,7 +111,7 @@ export default function Formcomponent() {
             }
 
             const data = await response.json(); // Parse the response JSON data
-
+            
             const mailResponse = await fetch('/api/mailer', {
                 method: 'POST',
                 headers: {
@@ -120,11 +122,24 @@ export default function Formcomponent() {
             if (!mailResponse.ok) {
                 // Handle error if the response status is not OK (e.g., 404, 500).
                 toast.error('Error in sending mail. Our team will connect you by phone')
-                throw new Error(`Error fetching data. Status: ${response.status}`);
+                throw new Error(`Error fetching data. Status: ${mailResponse.status}`);
             } else {
-
+                
                 addEvent(appointmentDetails.firstName, appointmentDetails.lastName,appointmentDetails.date,appointmentDetails.time)
 
+            }
+
+            const subscription = await fetch('/api/subscription', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(appointmentDetails),
+            });
+            if (!subscription.ok) {
+                // Handle error if the response status is not OK (e.g., 404, 500).
+                toast.error('Error in sending mail. Our team will connect you by phone')
+                throw new Error(`Error fetching data. Status: ${subscription.status}`);
             }
 
             return data;

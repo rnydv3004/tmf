@@ -18,14 +18,14 @@ let holidayList: (string | number | Date)[] = [];
 
 async function readHolidays() {
     try {
-        const chatbotRef = ref(db);
+        const chatbotRef = ref(db, `holiday`);
         const snapshot = await get(chatbotRef);
         // console.log("Function called")
 
         if (snapshot.exists()) {
             const data = snapshot.val();
             // console.log("Data:",data)
-            holidayList = data.holiday
+            holidayList = data
             return // Return the data
         } else {
             // console.log("Data: null")

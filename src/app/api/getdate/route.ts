@@ -10,30 +10,29 @@ const firebaseConfig = {
     databaseURL: process.env.DB_URL,
 };
 
-// Initialize Firebase
 const fbApp = initializeApp(firebaseConfig);
 
-// Initialize Realtime Database and get a reference to the service
 const db = getDatabase();
 let holidayList: (string | number | Date)[] = [];
 
 async function readHolidays() {
     try {
-        const chatbotRef = ref(db);
+        // const chatbotRef = ref(db);
+        const chatbotRef = ref(db, `holiday`);
         const snapshot = await get(chatbotRef);
-        // console.log("Function called")
+        console.log("Function called")
 
         if (snapshot.exists()) {
             const data = snapshot.val();
-            // console.log("Data:",data)
-            holidayList = data.holiday
+            console.log("Data:",data)
+            holidayList = data
             return // Return the data
         } else {
-            // console.log("Data: null")
+            console.log("Data: null")
             return null; // Return null if no data is available
         }
     } catch (error) {
-        // console.error("Error reading data:", error);
+        console.error("Error reading data:", error);
         throw error; // Re-throw the error to handle it elsewhere if needed
     }
 }
@@ -42,7 +41,7 @@ async function readHolidays() {
 function checkHoliday(date: any): any {
 
     let proposedDate = date;
-    // console.log("Proposed date in checkholiday:",proposedDate)
+    console.log("Proposed date in checkholiday:",proposedDate)
 
     if (holidayList.indexOf(proposedDate) !== -1) {
         // console.log("This date has a holiday");

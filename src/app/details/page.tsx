@@ -1,54 +1,61 @@
-// 'use client'
-// import React, { useEffect, useState } from 'react'
-// import Image from 'next/image'
-// import Logo from '../../../public/png.png'
-// import TodayIcon from '@mui/icons-material/Today';
-// import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-// import AppointmentDetails from '@/components/AppointmentDetails'
+'use client'
+import React, { useEffect, useState } from 'react';
+import AppointmentDetails from '@/components/AppointmentDetails';
+import { DateTime } from 'luxon';
 
-// export default function page() {
+export default function Page() {
 
-//     const [tabToday, setTabToday] = useState(true)
+  const [transformedData, setTransformmedData]:any = useState('')
+  const now = DateTime.now().setZone('America/Toronto');
+  const today = now.toFormat('yyyy-MM-dd');
+  // console.log("Today is:", today);
+  fetch('http://localhost:3000/api/getdata', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json', // Specify the content type as JSON
+    },
+    body: JSON.stringify({
+      "date": today
+    })
+  })
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`Error fetching data. Status: ${response.status}`);
+      }
+  
+      const resdata = await response.json();
+      // console.log("The data is:", resdata);
+  
+      let idCounter = 1;
+  
+      // Convert the input data into the desired format
+      const transformedDataTemp = Object.entries(resdata.data).map(([phone, details]: [string, any]) => ({
+        id: idCounter++, // You can set an appropriate ID here
+        lastName: details.lastName,
+        firstName: details.fullName,
+        phone: parseInt(phone, 10), // Convert phone to a number
+        email: details.email || '',
+        date: details.date || '',
+        time: details.time || ''
+      }));
+  
+      // console.log("Transformed data:", transformedDataTemp);
+      
+      // Ensure that setTransformedData is correctly defined and updates the state
+      
+      setTransformmedData(transformedDataTemp);
+      // console.log("After setting state");
+      // console.log("Transformed data in state:", transformedData);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+  
     
-//     return (
-//         <div className='bg-slate-300 h-screen w-screen flex flex-col overflow-hidden'>
-//             <header className='p-2 px-4 bg-white w-auto h-14 flex justify-between'>
-//                 <div className='h-8 w-fit flex'>
-//                     <Image src={Logo} alt={'Taxmechnaic Logo'} className='h-10 w-auto'
-//                         sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 800px" />
-//                 </div>
-//                 <nav className='text-black flex justify-center items-center text-sm font-semibold'>
-//                     <ul className='flex gap-2'>
-//                         <li onClick={() => {
-//                             setTabToday(true)
-//                         }} className={`${tabToday ? 'bg-blue-500 text-white' : 'bg-slate-300 text-black'} rounded-md p-2 cursor-pointer`}><TodayIcon /></li>
-//                         <li onClick={() => {
-//                             setTabToday(false)
-//                         }} className={`${!tabToday ? 'bg-blue-500 text-white' : 'bg-slate-300 text-black'} rounded-md p-2 cursor-pointer`}><CalendarMonthIcon /></li>
-//                     </ul>
-//                 </nav>
-//             </header>
-//             <section className='flex flex-col md:flex-row gap-2 h-full w-auto my-1 md:m-2'>
-//                 {tabToday ? (<div className='flex flex-col gap-2 h-full w-full bg-white rounded-md p-2'>
-//                     <p className='text-sm font-semibold text-slate-800 pl-4'>Today's Schedule: <span className='p-1 px-2 text-xs bg-slate-500 rounded-sm text-white'>2023-09-20</span></p>
-//                     <div className='h-full w-full flex overflow-scroll'><AppointmentDetails date={'2023-09-20'}/></div>
-//                 </div>) :
-//                     (<div className='flex flex-col gap-2 h-full w-full bg-white rounded-md p-2'>
-//                         <p className='text-sm font-semibold text-slate-800 pl-4'>All Appoitments</p>
-//                         <div className='h-full w-full flex overflow-scroll'><AppointmentDetails date={''}/></div>
-//                     </div>)}
-//             </section>
-//         </div>
-//     )
-// }
-
-
-import React from 'react'
-
-export default function page() {
   return (
-    <div>
-      This is Taxmechanic
+    <div className='flex flex-col gap-2 h-[calc(100vh-4rem)] w-full bg-white p-2'>
+      <p className='text-sm font-semibold text-slate-800 pl-4'>Today's Schedule: <span className='p-1 px-2 text-xs bg-slate-500 rounded-full text-white'>{today}</span></p>
+      <div className='h-full w-full flex overflow-scroll'><AppointmentDetails date={today} details={transformedData} /></div>
     </div>
-  )
+  );
 }
