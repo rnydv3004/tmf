@@ -15,13 +15,13 @@ export async function POST(request: NextRequest) {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
-                Authorization: 'Bearer MsKmrKxvyMJVMp87s4cWgG0uUJLlLhmVDcRdsXs6kDG35fRKbKf8UhrvCcgl8HMM'
+                Authorization: 'Bearer process.env.BEEHIIV_API'
             },
             body: _body
         };
 
         try {
-            const response = await fetch(url, options);
+            const response = await fetch({process.env.BEEHIIV_PUB}, options);
             const data = await response.json();
             console.log(data);
         } catch (error) {
@@ -36,10 +36,3 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: "This is an error:" }, { status: 401 })
     }
 }
-
-
-// Publication id
-// pub_7472b5fa-5190-4893-a6ee-c6f6a6695c8d
-
-// API Key
-// MsKmrKxvyMJVMp87s4cWgG0uUJLlLhmVDcRdsXs6kDG35fRKbKf8UhrvCcgl8HMM
