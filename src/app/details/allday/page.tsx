@@ -8,7 +8,7 @@ export default function Page() {
     const [transformedData, setTransformmedData]: any = useState('')
 
     // console.log("Today is:", today);
-    fetch('http://localhost:3000/api/getdata', {
+    fetch('https://taxmechanic-appointment.vercel.app/api/getdata', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json', // Specify the content type as JSON
