@@ -78,6 +78,8 @@ export async function POST(request: NextRequest) {
             scopes: 'https://www.googleapis.com/auth/calendar', //full access to edit calendar
         });
 
+        console.log("Auth successfully!")
+
         auth.getClient().then((a: any) => {
             calendar.events.insert({
                 auth: a,
