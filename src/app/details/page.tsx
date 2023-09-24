@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 
 export default function Page() {
 
-  const [transformedData, setTransformmedData]:any = useState('')
+  const [transformedData, setTransformmedData]:any = useState([])
   const now = DateTime.now().setZone('America/Toronto');
   const today = now.toFormat('yyyy-MM-dd');
   // console.log("Today is:", today);
