@@ -88,16 +88,16 @@ export async function POST(request: NextRequest) {
                 return NextResponse.json({ message: "Event created successfully!" }, { status: 200 });
             }).catch((err: any) => {
                 console.error("Error:", err);
-                return NextResponse.json({ error: err.message });
+                return NextResponse.json({ error: err.message },{ status: 401});
             });
         });
-
 
         return NextResponse.json({
             message: "Created!"
         }, { status: 200 });
 
     } catch (error: any) {
+        console.log("Error occurred while adding event:",error)
         return NextResponse.json({ error: error.message });
 
     }
