@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
             },
         };
 
-        const authG = new google.auth.GoogleAuth({
+        const auth = new google.auth.GoogleAuth({
             credentials: {
                 "type": "service_account",
                 "project_id": "avid-day-281003",
@@ -79,24 +79,37 @@ export async function POST(request: NextRequest) {
             scopes: 'https://www.googleapis.com/auth/calendar', //full access to edit calendar
         });
 
-        // console.log("Auth successfully!", auth)
+        console.log("Auth successfully!", auth)
 
-        // const res = auth.getClient()
-        // res.then((a)=>{
-            
-        // })
+        auth.getClient().then((a: any) => {
+            console.log("A:",a)
+            calendar.events.insert({
+                auth: a,
+                calendarId: GOOGLE_CALENDAR_ID,
+                resource: event,
+            }, function (err: string, event: any) {
+                if (err) {
+                    console.log('There was an error contacting the Calendar service: ' + err);
+                    return;
+                }
+                console.log('Event created: %s', event);
+            });
+        })
+
         // console.log("A:", a)
-        calendar.events.insert({
-            auth: authG,
-            calendarId: GOOGLE_CALENDAR_ID,
-            resource: event,
-        }).then((response: any) => {
-            console.log("Response:", response.data);
-            return NextResponse.json({ message: "Event created successfully!" }, { status: 200 });
-        }).catch((err: any) => {
-            console.error("Error:", err);
-            return NextResponse.json({ error: err.message }, { status: 401 });
-        });
+        // calendar.events.insert({
+        //     auth: authG,
+        //     calendarId: GOOGLE_CALENDAR_ID,
+        //     resource: event,
+        // }).then((response: any) => {
+        //     console.log("Response:", response.data);
+        //     return NextResponse.json({ message: "Event created successfully!" }, { status: 200 });
+        // }).catch((err: any) => {
+        //     console.error("Error:", err);
+        //     return NextResponse.json({ error: err.message }, { status: 401 });
+        // });
+
+
 
 
         console.log("Event created!")
