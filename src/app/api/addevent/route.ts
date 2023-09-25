@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
             },
         };
 
-        const auth = new google.auth.GoogleAuth({
+        const authG = new google.auth.GoogleAuth({
             credentials: {
                 "type": "service_account",
                 "project_id": "avid-day-281003",
@@ -79,14 +79,15 @@ export async function POST(request: NextRequest) {
             scopes: 'https://www.googleapis.com/auth/calendar', //full access to edit calendar
         });
 
-        console.log("Auth successfully!", auth)
+        // console.log("Auth successfully!", auth)
 
-        // let au:any
         // const res = auth.getClient()
-        
-        // console.log("A:", au)
-        calendar.events.insert({
+        // res.then((a)=>{
             
+        // })
+        // console.log("A:", a)
+        calendar.events.insert({
+            auth: authG,
             calendarId: GOOGLE_CALENDAR_ID,
             resource: event,
         }).then((response: any) => {
