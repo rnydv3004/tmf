@@ -26,7 +26,7 @@ export default function RootLayout({
     // console.log(loggedIn)
 
     return (
-        <section className='h-screen w-screen overflow-hidden'>
+        <section className='h-full w-full overflow-hidden'>
             {loggedIn ? (
                 <div className='h-full w-full overflow-hidden'>
                     <Header />
