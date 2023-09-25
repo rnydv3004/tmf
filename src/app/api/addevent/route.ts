@@ -79,11 +79,11 @@ export async function POST(request: NextRequest) {
             scopes: 'https://www.googleapis.com/auth/calendar', //full access to edit calendar
         });
 
-        console.log("Auth successfully!", auth)
+        // console.log("Auth successfully!", auth)
 
         auth.getClient().then((a: any) => {
-            console.log("A:",a)
-            calendar.events.insert({
+            // console.log("A:",a)
+            const res = calendar.events.insert({
                 auth: a,
                 calendarId: GOOGLE_CALENDAR_ID,
                 resource: event,
@@ -94,6 +94,8 @@ export async function POST(request: NextRequest) {
                 }
                 console.log('Event created: %s', event);
             });
+
+            console.log("Response:",res)
         })
 
         // console.log("A:", a)
