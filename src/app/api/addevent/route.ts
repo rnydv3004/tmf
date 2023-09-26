@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
 
 // ---------------------------------
 
-const createGEvent = async (gEvent) => {
+const createGEvent = async (gEvent: any) => {
   // create client that we can use to communicate with Google 
   const client = new JWT({
     email: process.env.GOOGLE_CLIENT_EMAIL,
