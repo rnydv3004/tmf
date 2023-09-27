@@ -75,8 +75,8 @@ export async function POST(request: NextRequest) {
                 "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
                 "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/calender-key%40avid-day-281003.iam.gserviceaccount.com",
                 "universe_domain": "googleapis.com",
-                "redirect_uris": ["https://taxmechanic-appointment.vercel.app/api/addevent", "http://localhost:3000/api/addevent"],
-                "javascript_origins": ["https://taxmechanic-appointment.vercel.app/api/addevent", "http://localhost:3000/api/addevent"]
+                "redirect_uris" : ["https://taxmechanic-appointment.vercel.app/","http://localhost:3000/"],
+                "javascript_origins": ["https://taxmechanic-appointment.vercel.app/","http://localhost:3000/"]
             },
             scopes: 'https://www.googleapis.com/auth/calendar', //full access to edit calendar
         });
