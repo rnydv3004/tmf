@@ -83,8 +83,8 @@ export async function POST(request: NextRequest) {
         });
 
         const addCalendarEvent = async () => {
-            await auth.getClient().then((auth: any) => {
-                calendar.events.insert(
+            await auth.getClient().then(async (auth: any) => {
+                await calendar.events.insert(
                     {
                         auth: auth,
                         calendarId: GOOGLE_CALENDAR_ID,
