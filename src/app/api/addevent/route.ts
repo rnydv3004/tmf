@@ -75,46 +75,33 @@ export async function POST(request: NextRequest) {
                 "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
                 "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/calender-key%40avid-day-281003.iam.gserviceaccount.com",
                 "universe_domain": "googleapis.com",
-                "redirect_uris" : ["https://taxmechanic-appointment.vercel.app/","http://localhost:3000/"],
-                "javascript_origins": ["https://taxmechanic-appointment.vercel.app/","http://localhost:3000/"]
+                "redirect_uris": ["https://taxmechanic-appointment.vercel.app/api/addevent", "http://localhost:3000/api/addevent"],
+                "javascript_origins": ["https://taxmechanic-appointment.vercel.app/api/addevent", "http://localhost:3000/api/addevent"]
             },
             scopes: 'https://www.googleapis.com/auth/calendar', //full access to edit calendar
         });
 
-        // console.log("Auth successfully!", auth)
-
-        auth.getClient().then((a: any) => {
-            // console.log("A:",a)
-            const res = calendar.events.insert({
-                auth: a,
-                calendarId: GOOGLE_CALENDAR_ID,
-                resource: event,
-            }, function (err: string, event: any) {
-                if (err) {
-                    console.log('There was an error contacting the Calendar service: ' + err);
-                    return;
-                }
-                console.log('Event created: %s', event);
+        const addCalendarEvent = async () => {
+            auth.getClient().then((auth: any) => {
+                calendar.events.insert(
+                    {
+                        auth: auth,
+                        calendarId: GOOGLE_CALENDAR_ID,
+                        resource: event,
+                    },
+                    function (error: any, response: { data: any; }) {
+                        if (error) {
+                            console.log("Something went wrong: " + error); // If there is an error, log it to the console
+                            return;
+                        }
+                        console.log("Event created successfully.")
+                        console.log("Event details: ", response.data); // Log the event details
+                    }
+                );
             });
+        };
 
-            console.log("Response:",res)
-        })
-
-        // console.log("A:", a)
-        // calendar.events.insert({
-        //     auth: authG,
-        //     calendarId: GOOGLE_CALENDAR_ID,
-        //     resource: event,
-        // }).then((response: any) => {
-        //     console.log("Response:", response.data);
-        //     return NextResponse.json({ message: "Event created successfully!" }, { status: 200 });
-        // }).catch((err: any) => {
-        //     console.error("Error:", err);
-        //     return NextResponse.json({ error: err.message }, { status: 401 });
-        // });
-
-
-
+        addCalendarEvent()
 
         console.log("Event created!")
 
