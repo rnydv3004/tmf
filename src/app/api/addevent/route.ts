@@ -120,8 +120,8 @@ export async function POST(request: NextRequest) {
         // }
 
         return NextResponse.json({
-            error: "oops!"
-        }, { status: 401 });
+            error: "Event Added!"
+        }, { status: 200 });
 
 
 
