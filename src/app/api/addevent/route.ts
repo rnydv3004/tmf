@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
         };
 
         const auth = new google.auth.GoogleAuth({
-            
+
             credentials: {
                 "type": "service_account",
                 "project_id": "avid-day-281003",
@@ -80,39 +80,50 @@ export async function POST(request: NextRequest) {
                 "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
                 "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/calender-key%40avid-day-281003.iam.gserviceaccount.com",
                 "universe_domain": "googleapis.com",
-                "redirect_uris" : ["https://taxmechanic-appointment.vercel.app/api/addevent","http://localhost:3000/api/addevent","https://taxmechanic-appointment.vercel.app","http://localhost:3000"],
-                "javascript_origins": ["https://taxmechanic-appointment.vercel.app/api/addevent","http://localhost:3000/api/addevent","https://taxmechanic-appointment.vercel.app","http://localhost:3000"]
+                "redirect_uris": ["https://taxmechanic-appointment.vercel.app/api/addevent", "http://localhost:3000/api/addevent", "https://taxmechanic-appointment.vercel.app", "http://localhost:3000"],
+                "javascript_origins": ["https://taxmechanic-appointment.vercel.app/api/addevent", "http://localhost:3000/api/addevent", "https://taxmechanic-appointment.vercel.app", "http://localhost:3000"]
             },
             scopes: 'https://www.googleapis.com/auth/calendar', //full access to edit calendar
         });
 
         const addCalendarEvent = async () => {
-            await auth.getClient().then(async (auth: any) => {
-                await calendar.events.insert(
-                    {
-                        auth: auth,
+            return new Promise<void>(async (resolve, reject) => {
+                try {
+                    const authClient = await auth.getClient();
+                    const response = await calendar.events.insert({
+                        auth: authClient,
                         calendarId: GOOGLE_CALENDAR_ID,
                         resource: event,
-                    },
-                    function (error: any, response: { data: any; }) {
-                        if (error) {
-                            console.log("Something went wrong: " + error); // If there is an error, log it to the console
-                            return;
-                        }
-                        console.log("Event created successfully.")
-                        console.log("Event details: ", response.data); // Log the event details
-                    }
-                );
+                    });
+                    console.log("Event created successfully.");
+                    console.log("Event details: ", response.data);
+                    resolve(response.data.etag);
+                } catch (error) {
+                    console.log("Something went wrong: " + error);
+                    reject(error);
+                }
             });
         };
 
-        addCalendarEvent()
+        let test: undefined | any
+        let counter = 0
+        test = await addCalendarEvent(); // Wait for the insert operation to complete
 
-        console.log("Event created!")
+        while(!test && counter++ < 10){
+            console.log("Adding event ... please wait...")
+            test = await addCalendarEvent(); // Wait for the insert operation to complete
+        }
+        
+
+        // while(addCalendarEvent()){
+        //     console.log("Adding event ... please wait...")
+        // }
 
         return NextResponse.json({
-            message: "Created!"
-        }, { status: 200 });
+            error: "oops!"
+        }, { status: 401 });
+
+
 
     } catch (error: any) {
         console.log("Error occurred while adding event:", error)
