@@ -14,7 +14,11 @@ const jwtClient = new google.auth.JWT(
     GOOGLE_CLIENT_EMAIL,
     null,
     GOOGLE_PRIVATE_KEY,
-    SCOPES
+    SCOPES,
+    null, // The email of the user for impersonation (if needed)
+    {
+        expiresIn: "1d", // Set the token expiration to 1 day
+    }
 );
 
 const calendar = google.calendar({
