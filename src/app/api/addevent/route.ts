@@ -63,6 +63,7 @@ export async function POST(request: NextRequest) {
         };
 
         const auth = new google.auth.GoogleAuth({
+            
             credentials: {
                 "type": "service_account",
                 "project_id": "avid-day-281003",
@@ -82,7 +83,7 @@ export async function POST(request: NextRequest) {
         });
 
         const addCalendarEvent = async () => {
-            auth.getClient().then((auth: any) => {
+            await auth.getClient().then((auth: any) => {
                 calendar.events.insert(
                     {
                         auth: auth,
