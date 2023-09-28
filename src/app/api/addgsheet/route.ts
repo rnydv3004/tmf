@@ -5,7 +5,7 @@ const sheets = google.sheets('v4');
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 // const CREDENTIALS_PATH = 'path-to-your-credentials.json'; // Replace with the path to your JSON key file
-const SPREADSHEET_ID = '1bhTNq-8KAr2AOwnEOCsLafqmhQHC4USycpA221ktFus'; // Replace with your Google Sheet's ID
+const SPREADSHEET_ID = process.env.CLIENT_ID; // Replace with your Google Sheet's ID
 const RANGE_NAME = 'Details!A2'; // Replace with the sheet name where you want to start writing data
 
 

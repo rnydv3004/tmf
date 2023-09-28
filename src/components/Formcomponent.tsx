@@ -10,6 +10,7 @@ import { toast } from 'react-hot-toast';
 import Link from 'next/link';
 import { DateTime } from 'luxon';
 import { addSubscription } from '@/helper/subscribe';
+import AppointmentDetails from './AppointmentDetails';
 
 const timeZones = [
     'Asia/Kolkata',
@@ -65,7 +66,7 @@ export default function Formcomponent() {
     }
 
 
-    async function addEvent(firstName: any, lastName: any, date: any, time: any) {
+    async function addEvent(firstName: any, lastName: any,phone:any, email:any, date: any, time: any) {
         try {
             const response = await fetch('/api/addevent', {
                 method: 'POST',
@@ -80,11 +81,29 @@ export default function Formcomponent() {
                 }),
             });
 
+            const response2 = await fetch('/api/addgsheet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName: firstName,
+                    lastName: lastName,
+                    phone: phone,
+                    email: email,
+                    date: date,
+                    time: time
+                }),
+            });
+
             // You can handle the response here if needed
             if (!response.ok) {
                 // Handle non-successful response (e.g., error handling)
                 console.error('Failed to add event:', response.statusText);
-            } else {
+            } else if (!response2.ok) {
+                // Handle non-successful response (e.g., error handling)
+                console.error('Failed to add details in sheet:', response2.statusText);
+            }{
                 // Event added successfully
                 toast.success('Confirmation email sent')
                 console.log('Event added successfully');
@@ -125,7 +144,7 @@ export default function Formcomponent() {
                 throw new Error(`Error fetching data. Status: ${mailResponse.status}`);
             } else {
                 
-                addEvent(appointmentDetails.firstName, appointmentDetails.lastName,appointmentDetails.date,appointmentDetails.time)
+                addEvent(appointmentDetails.firstName, appointmentDetails.lastName,appointmentDetails.phone,appointmentDetails.email,appointmentDetails.date,appointmentDetails.time)
 
             }
 
