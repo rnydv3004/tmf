@@ -148,6 +148,14 @@ export default function Formcomponent() {
 
             }
 
+            const reminderScheduler = await fetch('/api/schedule', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(appointmentDetails),
+            });
+
             const subscription = await fetch('/api/subscription', {
                 method: 'POST',
                 headers: {
@@ -155,6 +163,7 @@ export default function Formcomponent() {
                 },
                 body: JSON.stringify(appointmentDetails),
             });
+
             if (!subscription.ok) {
                 // Handle error if the response status is not OK (e.g., 404, 500).
                 toast.error('Error in sending mail. Our team will connect you by phone')

@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
                 'dateTime': endTime,
 
             },
-            'attendees': [''],
+            'attendees': [{ 'email': 'codelogically1@gmail.com'}],
             'reminders': {
                 'useDefault': false,
                 'overrides': [
