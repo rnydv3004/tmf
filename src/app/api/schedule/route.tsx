@@ -50,6 +50,8 @@ export async function POST(request: NextRequest) {
             mailOneDayBefore(firstName, email, date, clienttime, time, 0)
         });
 
+        console.log("Staus:",job2.status)
+
         return NextResponse.json({
             message: "Appointment Booked Successfully!",
             status: 200,
