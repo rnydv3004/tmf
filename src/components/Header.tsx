@@ -18,7 +18,7 @@ export default function Header() {
     // console.log(pathname)
 
     return (
-        <header className='p-2 px-4 bg-white w-auto h-14 flex justify-between border-b-2 border-slate-400'>
+        <header className='p-2 px-4 bg-[#fbfbfb]  w-auto h-14 flex justify-between'>
             <div className='h-8 w-fit flex'>
                 <Image src={Logo} alt={'Taxmechnaic Logo'} className='h-10 w-auto'
                     sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 800px" />

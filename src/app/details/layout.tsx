@@ -28,7 +28,7 @@ export default function RootLayout({
     return (
         <section className='h-full w-full overflow-hidden'>
             {loggedIn ? (
-                <div className='h-full w-full overflow-hidden'>
+                <div className='h-full w-full  overflow-hidden'>
                     <Header />
                     {children}
                 </div>)

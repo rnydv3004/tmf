@@ -54,21 +54,21 @@ export default function Userauth() {
                 </div>
                 {/* user */}
                 <div className='mt-2'>
-                    <label htmlFor="user" className="block text-sm font-medium leading-6 text-gray-700">username <span className='text-red-500'>*</span></label>
+                    <label htmlFor="user" className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs">username <span className='text-red-500'>*</span></label>
                     <div className="mt-0.5">
                         <input type="text" name="user" id="user" value={user.user} autoComplete="given-name" onChange={(e) => {
                             e.preventDefault()
                             setUser({ ...user, user: e.target.value })
-                        }} className="block w-full rounded-md border-2 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        }} className="bg-[#FFEBCD] text-[#8B4513] w-full rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm" />
                     </div>
                 </div>
                 <div className='mt-4'>
-                    <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-gray-700">password <span className='text-red-500'>*</span></label>
+                    <label htmlFor="last-name" className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs">password <span className='text-red-500'>*</span></label>
                     <div className="mt-0.5">
                         <input type="password" name="last-name" id="last-name" value={user.password} onChange={(e) => {
                             e.preventDefault()
                             setUser({ ...user, password: e.target.value })
-                        }} autoComplete="family-name" className="block w-full rounded-md border-2 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                        }} autoComplete="family-name" className="bg-[#FFEBCD] text-[#8B4513] w-full rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm" />
                     </div>
                 </div>
                 <div className="mt-8">
@@ -76,7 +76,7 @@ export default function Userauth() {
                     onClick={()=>{
                         userAuth()
                     }}
-                    type="submit" className="block w-full rounded-md bg-blue-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-blue-600 active:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600" >Log in</button>
+                    type="submit" className="bblock w-fit rounded-md text-[#FFEBCD] bg-[#e1ac27] z-40 px-5 py-2.5 text-center text-sm font-semibold shadow-sm hover:bg-[#bb8f22] active:bg-[#bb8f22] focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600" >Log in</button>
                 </div>
             </div>
         </div>

@@ -13,9 +13,9 @@ const fbApp = initializeApp(firebaseConfig);
 const db = getDatabase()
 
 async function updateBookingTime(dateReq: string, timeReq: string) {
-    
+
     try {
-        let bookedSlot:any;
+        let bookedSlot: any;
         const chatbotRef = ref(db, `bookedslots/${dateReq}`);
         const snapshot = await get(chatbotRef);
         // console.log("Function called");
@@ -31,7 +31,7 @@ async function updateBookingTime(dateReq: string, timeReq: string) {
             bookedSlot = [];
         }
 
-        bookedSlot = bookedSlot.slice(0, -1) + ',' + '\''+ timeReq + '\'' + ']'
+        bookedSlot = bookedSlot.slice(0, -1) + ',' + '\'' + timeReq + '\'' + ']'
 
         // bookedSlot
         // console.log("Booked slot:",bookedSlot)
@@ -45,7 +45,7 @@ async function updateBookingTime(dateReq: string, timeReq: string) {
     }
 }
 
-async function saveData(fullNameReq: string, lastNameReq: string, typeReq: string, emailReq: string, phoneReq: string, messageReq: string, dateReq: string, timeReq: string) {
+async function saveData(fullNameReq: string, lastNameReq: string, typeReq: string, emailReq: string, phoneReq: string, messageReq: string, dateReq: string, timeReq: string, eventId: string) {
 
     try {
         // Initialize Firebase
@@ -57,7 +57,8 @@ async function saveData(fullNameReq: string, lastNameReq: string, typeReq: strin
             phone: phoneReq,
             message: messageReq,
             date: dateReq,
-            time: timeReq
+            time: timeReq,
+            eventId: eventId
         });
 
         updateBookingTime(dateReq, timeReq)
@@ -71,15 +72,15 @@ async function saveData(fullNameReq: string, lastNameReq: string, typeReq: strin
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
-        const { firstName, lastName, type, email, phone, message, date, time } = reqBody
+        const { firstName, lastName, type, email, phone, message, date, time, eventId } = reqBody
 
-        saveData(firstName, lastName, type, email, phone, message, date, time)
+        saveData(firstName, lastName, type, email, phone, message, date, time, eventId)
 
-        
+
 
         return NextResponse.json({
             message: "Appointment Booked Successfully!",
-            status : 200
+            status: 200
         }, { status: 200 });
 
     } catch (error: any) {
