@@ -79,7 +79,7 @@ export default function Formcomponent() {
     try {
       // ADD GOOGLE EVENT
 
-      const response = await fetch("https://taxmechanic-appointment.vercel.app/api/addevent", {
+      const response = await fetch("/api/addevent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,7 +107,7 @@ export default function Formcomponent() {
       }
 
       // ADD DATA TO GOOGLESHEET
-      const response2 = await fetch("https://taxmechanic-appointment.vercel.app/api/addgsheet", {
+      const response2 = await fetch("/api/addgsheet", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +137,7 @@ export default function Formcomponent() {
       }
 
       // MAILER
-      const mailResponse = await fetch("https://taxmechanic-appointment.vercel.app/api/mailer", {
+      const mailResponse = await fetch("/api/mailer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -153,7 +153,7 @@ export default function Formcomponent() {
       }
 
       // REMINDER MAIL SCHEDULER
-      const reminderScheduler = await fetch("https://taxmechanic-appointment.vercel.app/api/schedule", {
+      const reminderScheduler = await fetch("/api/schedule", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -162,7 +162,7 @@ export default function Formcomponent() {
       });
 
       // BEEHIVE SUBSCRIPTION
-      const subscription = await fetch("https://taxmechanic-appointment.vercel.app/api/subscription", {
+      const subscription = await fetch("/api/subscription", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -227,7 +227,7 @@ export default function Formcomponent() {
   useEffect(() => {
     const firebaseBook = async () => {
       try {
-        const response = await fetch("https://taxmechanic-appointment.vercel.app/api/bookappointment", {
+        const response = await fetch("/api/bookappointment", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -258,7 +258,7 @@ export default function Formcomponent() {
 
       setAppointmentDetails({ ...appointmentDetails, timezone: myZone });
 
-      const response = await fetch("https://taxmechanic-appointment.vercel.app/api/getdate", {
+      const response = await fetch("/api/getdate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Specify the content type as JSON
@@ -293,7 +293,7 @@ export default function Formcomponent() {
 
   async function fetchSlots(checkDate: any) {
     try {
-      const response = await fetch("https://taxmechanic-appointment.vercel.app/api/gettime", {
+      const response = await fetch("/api/gettime", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Specify the content type as JSON
