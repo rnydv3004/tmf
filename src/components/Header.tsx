@@ -30,11 +30,6 @@ export default function Header() {
                             setTabToday('today')
                         }} className={`${tabToday === 'today' || pathname === '/details' ? 'bg-blue-500 text-white' : 'bg-slate-300 text-black'} rounded-md p-1 cursor-pointer`}><TodayIcon /></li>
                     </Link>
-                    <Link href={'/details/allday'}>
-                        <li onClick={() => {
-                            setTabToday('all')
-                        }} className={`${tabToday === 'all' || pathname === '/details/allday' ? 'bg-blue-500 text-white' : 'bg-slate-300 text-black'} rounded-md p-1 cursor-pointer`}><ListAltIcon /></li>
-                    </Link>
                     <Link href={'/details/calender'}>
                         <li onClick={() => {
                             setTabToday('calender')

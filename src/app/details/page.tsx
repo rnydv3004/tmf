@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import AppointmentDetails from "@/components/AppointmentDetails";
-import { DateTime } from "luxon";
 import Card from "@/components/Card";
 
 interface UserData {
@@ -16,12 +15,11 @@ interface UserData {
 
 export default function Page() {
   const [transformedData, setTransformedData]: any = useState("");
-  const now = DateTime.now().setZone("America/Toronto");
-  const today = now.toFormat("yyyy-MM-dd");
+
 
   return (
     <div className="flex flex-col gap-2 h-[calc(100vh-4rem)] w-full bg-slate-200 shadow-md shadow-amber-500 p-2">
-      <Card passedDate={today}/>
+      <Card/>
     </div>
   );
 }

@@ -6,7 +6,7 @@ export interface UserData {
     email: string;
     date: string;
     time: string;
-    status: string;
+    status: any;
     message: string;
     eventId: string;
     content: string

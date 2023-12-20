@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
         const { date } = reqBody
+        // console.log("Date received from fronthend:", date)
 
        
         let details: (string | number | Date)[] = []
@@ -33,6 +34,7 @@ export async function POST(request: NextRequest) {
         } else {
             details = []
         }
+
 
         // console.log("details",details)
         return NextResponse.json({ data: details },{status: 200});
