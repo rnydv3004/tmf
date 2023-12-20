@@ -7,7 +7,7 @@ module.exports = {
   env: {
     NODEMAILER_EMAIL: "sunny@taxmechanic.ca",
     SPREADSHEET_ID: '1bhTNq-8KAr2AOwnEOCsLafqmhQHC4USycpA221ktFus',
-    NODEMAILER_PW: "fwlx zgby zkzs tpbo",
+    NODEMAILER_PW: "bdpj dgtc qoez qgro",
     DB_URL: "https://appointments-b9eae-default-rtdb.firebaseio.com/",
     USER_DETAILS_ID: "admin",
     USER_PASSWORD: "Admin24680#",
