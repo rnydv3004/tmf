@@ -2,9 +2,15 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import Logo from "./../../public/png.png";
 import Image from "next/image";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import dayjs from "dayjs";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { DateTime } from "luxon";
+import { addSubscription } from "@/helper/subscribe";
+import AppointmentDetails from "./AppointmentDetails";
 
 const timeZones = [
   "Asia/Kolkata",
@@ -347,11 +353,11 @@ export default function Formcomponent() {
           <div className="flex flex-col bg-white rounded-lg p-5 md:p-10 justify-center items-center gap-6 m-10">
             {!loading ? (
               <div className="flex flex-col justify-center items-center gap-5 ">
-                <div className="h-10 md:h-16 w-fit flex">
+                <div className="h-16 w-fit flex">
                   <Image
                     src={Logo}
                     alt={"Taxmechnaic Logo"}
-                    className="h-10 md:h-16 w-auto"
+                    className="h-16 w-auto"
                     sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 800px"
                   />
                 </div>
@@ -397,7 +403,7 @@ export default function Formcomponent() {
               <div className="flex flex-col">
                 <label
                   htmlFor="first-name"
-                  className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs"
+                  className="bg-transparent text-slate-700 rounded-lg py-0 font-medium text-xs"
                 >
                   First name <span className="text-red-500">*</span>
                 </label>
@@ -414,14 +420,14 @@ export default function Formcomponent() {
                       firstName: e.target.value,
                     });
                   }}
-                  className="bg-white text-[#3e3e3e] md:min-w-[280px] rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-semibold text-sm"
+                  className="bg-white text-[#3e3e3e] md:min-w-[280px] rounded-lg px-4 py-3 md:py-2  font-semibold text-sm"
                 />
               </div>
 
               <div className="flex flex-col">
                 <label
                   htmlFor="last-name"
-                  className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs"
+                  className="bg-transparent text-slate-700 rounded-lg py-0 font-medium text-xs"
                 >
                   Last name <span className="text-red-500">*</span>
                 </label>
@@ -438,14 +444,14 @@ export default function Formcomponent() {
                     });
                   }}
                   autoComplete="family-name"
-                  className="bg-white text-[#3e3e3e]  rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-semibold text-sm"
+                  className="bg-white text-[#3e3e3e]  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm"
                 />
               </div>
 
               <div className="flex flex-col">
                 <label
                   htmlFor="email"
-                  className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs"
+                  className="bg-transparent text-slate-700 rounded-lg py-0 font-medium text-xs"
                 >
                   Email <span className="text-red-500">*</span>
                 </label>
@@ -462,14 +468,14 @@ export default function Formcomponent() {
                     });
                   }}
                   autoComplete="email"
-                  className="bg-white text-[#3e3e3e]  rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-semibold text-sm"
+                  className="bg-white text-[#3e3e3e]  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm"
                 />
               </div>
 
               <div className="flex flex-col">
                 <label
                   htmlFor="phone-number"
-                  className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs"
+                  className="bg-transparent text-slate-700 rounded-lg py-0 font-medium text-xs"
                 >
                   Phone number <span className="text-red-500">*</span>
                 </label>
@@ -486,7 +492,7 @@ export default function Formcomponent() {
                     });
                   }}
                   autoComplete="tel"
-                  className="bg-white text-[#3e3e3e] rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-semibold text-sm"
+                  className="bg-white text-[#3e3e3e] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm"
                 />
               </div>
 
@@ -494,14 +500,14 @@ export default function Formcomponent() {
 
               <div className="col-span-1">
                 <div className="flex flex-col w-full">
-                  <p className="bg-transparent text-slate-500 rounded-lg py-3 md:py-2 font-medium text-xs">
+                  <p className="bg-transparent text-slate-700 rounded-lg py-0 md:py-0 font-medium text-xs">
                     Your Time Zone:
                   </p>
                   <select
                   id="timezoneDd"
                     value={appointmentDetails.timezone}
                     onChange={handleTimeZoneChange}
-                    className="bg-white text-[#3e3e3e] w-full  rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-medium text-sm"
+                    className="bg-white text-[#3e3e3e] w-full  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm"
                   >
                     {timeZones.map((zone, index) => (
                       <option key={index} value={zone}>
@@ -520,7 +526,7 @@ export default function Formcomponent() {
                     <>
                       <label
                         htmlFor="appointmentDate"
-                        className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs"
+                        className="bg-transparent text-slate-700 rounded-lg py-0 font-medium text-xs"
                       >
                         Appointment Date <span className="text-red-500">*</span>
                       </label>
@@ -551,10 +557,10 @@ export default function Formcomponent() {
                           min={dateSlots.first}
                           max={dateSlots.second}
                           //   style={{ pointerEvents: "none" }}
-                          className="bg-white text-[#3e3e3e] w-full  rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-medium text-sm z-40 opacity-0 absolute
+                          className="bg-white text-[#3e3e3e] w-full  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm z-40 opacity-0 absolute
                           top-0"
                         />
-                        <div className="w-full bg-white text-[#3e3e3e] rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-medium text-sm flex justify-between absolute
+                        <div className="w-full bg-white text-[#3e3e3e] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm flex justify-between absolute
                          top-0 -z-0">
                           {" "}
                           <span className="h-full w-fit ">{dateValue}</span>
@@ -601,7 +607,7 @@ export default function Formcomponent() {
               {/* Slots */}
               <div className="flex flex-wrap gap-2 w-full h-full justify-start items-start max-w-sm mx-auto">
                 <div className="flex flex-col md:flex-col-reverse gap-4 pt-10 md:p-0 w-full justify-start items-center ">
-                  {true ? (
+                  {timeLoader ? (
                     <span className="loader"></span>
                   ) : (
                     <div className="flex justify-center items-center flex-wrap gap-2">
@@ -628,7 +634,7 @@ export default function Formcomponent() {
                         } flex justify-center items-center flex-wrap gap-2`}
                       >
                         {allSlots.length === 0 ? (
-                          <p className="text-slate-700 font-semibold text-xs bg-white p-2 rounded-md flex-wrap">
+                          <p className="text-slate-700 font-semibold text-xs bg-slate-100 p-2 rounded-md flex-wrap">
                             {" "}
                             No Available Slot
                           </p>
@@ -646,7 +652,7 @@ export default function Formcomponent() {
                   {!slotIdentifier ? (
                     ""
                   ) : (
-                    <div className="text-black flex flex-wrap justify-center items-center bg-white rounded-lg w-fit p-4 gap-2">
+                    <div className="text-black flex flex-wrap justify-center items-center bg-slate-200 rounded-lg w-fit p-4 gap-2">
                       <div className="flex gap-2  justify-center items-center font-semibold text-xs">
                         <div className="w-2 h-2 bg-slate-500 rounded-full"></div>{" "}
                         Booked
