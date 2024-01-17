@@ -6,7 +6,7 @@ import bgImage from "../../public/5465845.jpg";
 
 export default function Home() {
   return (
-    <div className="flex lg:justify-center bg-gradient-to-tr bg-transparent w-screen h-screen bg-white">
+    <div className="flex lg:justify-center bg-gradient-to-tr bg-transparent w-screen h-screen ">
       <div className="absolute top-0 left-0 h-screen w-screen overflow-hidden -z-10">
         <Image priority src={bgImage} alt={"backkground"} className="w-full h-screen" />
       </div>
