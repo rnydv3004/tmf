@@ -24,7 +24,7 @@ const timeZones = [
 ];
 
 export default function Formcomponent() {
-  const [dateValue, setDateValue] = useState();
+  const [dateValue, setDateValue] = useState('yyyy-MM-dd');
   const [dialog, setDialog] = useState(false);
   const [loading, setLoading] = useState(true);
   const [bookingStatus, setBookingStatus] = useState(true);
@@ -527,7 +527,7 @@ export default function Formcomponent() {
 
               {/* Appointment Date */}
 
-              <div className="rounded-lg p-0 text-black font-semibold text-xs">
+              <div className="rounded-lg p-0 text-black">
                 <div className="flex flex-col relative">
                   {dateSlots && dateSlots.first && (
                     <>
@@ -552,6 +552,8 @@ export default function Formcomponent() {
                               date: newValue,
                             });
 
+                            setDateValue(e.target.value)
+
                             const timeInfo = fetchSlots(newValue);
                             timeInfo.then((data) => {
                               setAllSlots(data.value);
@@ -562,11 +564,13 @@ export default function Formcomponent() {
                           min={dateSlots.first}
                           max={dateSlots.second}
                           //   style={{ pointerEvents: "none" }}
-                          className="bg-[#FFEBCD] text-[#8B4513] w-full min-w-full rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm opacity-100 z-30"
+                          className="bg-[#FFEBCD] text-[#8B4513] w-full  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm z-40 opacity-0 absolute
+                          top-0"
                         />
-                        <div className="w-full absolute top-0 -z-10 bg-[#FFEBCD] text-[#8B4513] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm">
+                        <div className="w-full bg-[#FFEBCD] text-[#8B4513] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm flex justify-between absolute
+                         top-0 -z-0">
                           {" "}
-                          <span className="h-full w-full text-green-600">{dateValue}</span>
+                          <span className="h-full w-fit ">{dateValue}</span>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -575,6 +579,7 @@ export default function Formcomponent() {
                             stroke="currentColor"
                             width={"16"}
                             height={"16"}
+                            
                           >
                             <path
                               stroke-linecap="round"
