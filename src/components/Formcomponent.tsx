@@ -517,7 +517,7 @@ export default function Formcomponent() {
 
               <div className="col-span-1">
                 <div className="flex flex-col w-full">
-                  <p className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs">
+                  <p className="bg-transparent text-slate-500 rounded-lg py-3 md:py-2 font-medium text-xs">
                     Your Time Zone:
                   </p>
                   <select
@@ -536,6 +536,43 @@ export default function Formcomponent() {
 
               {/* Appointment Date */}
 
+              <div className="rounded-lg p-0 text-black font-semibold text-xs">
+                <div className="flex flex-col relative">
+                  <label
+                    htmlFor="appointmentDate"
+                    className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs"
+                  >
+                    Appointment Date <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    value={dateValue}
+                    onChange={(e) => {
+                      const newValue = e.target.value;
+                      setNoSlotIdentifier(true);
+                      setTimeLoader(true);
+                      setSlotIdentifier(true);
+                      setAppointmentDetails({
+                        ...appointmentDetails,
+                        date: newValue,
+                      });
+
+                      const timeInfo = fetchSlots(newValue);
+                      timeInfo.then((data) => {
+                        setAllSlots(data.value);
+                        setAvailableSlot(data.bookedslots);
+                        setTimeLoader(false);
+                      });
+                    }}
+                    min={dateSlots.first}
+                    max={dateSlots.second}
+                    //   style={{ pointerEvents: "none" }}
+                    className="bg-[#FFEBCD] text-[#8B4513] w-full min-w-full rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm"
+                  />
+                  <div className="w-[80%] h-full absolute top-0 z-10 bg-opacity-0"></div>
+                </div>
+              </div>
+
               {calenderLoader ? (
                 <div className="flex flex-col gap-2 justify-center items-center">
                   <span className="loader absolute w-full h-full top-0 bottom-0 left-0 right-0 z-50"></span>
@@ -544,42 +581,7 @@ export default function Formcomponent() {
                   </span>
                 </div>
               ) : (
-                <div className="rounded-lg p-0 text-black font-semibold text-xs">
-                  <div className="flex flex-col relative">
-                    <label
-                      htmlFor="appointmentDate"
-                      className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs"
-                    >
-                      Appointment Date <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="date"
-                      value={dateValue}
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setNoSlotIdentifier(true);
-                        setTimeLoader(true);
-                        setSlotIdentifier(true);
-                        setAppointmentDetails({
-                          ...appointmentDetails,
-                          date: newValue,
-                        });
-
-                        const timeInfo = fetchSlots(newValue);
-                        timeInfo.then((data) => {
-                          setAllSlots(data.value);
-                          setAvailableSlot(data.bookedslots);
-                          setTimeLoader(false);
-                        });
-                      }}
-                      min={dateSlots.first}
-                      max={dateSlots.second}
-                      //   style={{ pointerEvents: "none" }}
-                      className="bg-[#FFEBCD] text-[#8B4513] w-full  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm"
-                    />
-                    <div className="w-[80%] h-full absolute top-0 z-10 bg-opacity-0"></div>
-                  </div>
-                </div>
+                ""
               )}
             </div>
 
@@ -644,7 +646,7 @@ export default function Formcomponent() {
                         <div className="w-10 h-5 bg-blue-500 rounded-full"></div>{" "}
                         Available Slot
                       </div>
-                      <div className="flex gap-2 justify-center items-center font-semibold text-sm">
+                      <div className="flex gap-2 bg-green-600 justify-center items-center font-semibold text-sm">
                         <div className="w-10 h-5 rounded-full"></div> Selected
                         Slot
                       </div>
