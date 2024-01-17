@@ -1,10 +1,15 @@
 import Formcomponent from "@/components/Formcomponent";
 import Image from "next/image";
 import { Toaster } from "react-hot-toast";
+import bgImage from "../../public/5465845.jpg";
+
 
 export default function Home() {
   return (
-    <div className="flex lg:justify-center bg-gradient-to-tr from-white via-slate-100 to-slate-200 w-screen h-screen bg-slate-800">
+    <div className="flex lg:justify-center bg-gradient-to-tr bg-transparent w-screen h-screen bg-slate-800">
+      <div className="absolute top-0 left-0 h-screen w-screen overflow-hidden -z-10">
+        <Image src={bgImage} alt={"backkground"} className="w-full h-screen" />
+      </div>
       <div className="flex flex-col lg:flex-row md:justify-center md:items-center pt-24 px-0 md:p-0 w-full overflow-hidden">
         <Formcomponent />
         <Toaster />

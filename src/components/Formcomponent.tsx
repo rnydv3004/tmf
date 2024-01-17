@@ -396,7 +396,7 @@ export default function Formcomponent() {
 
           <form
             onSubmit={handleSubmit}
-            className=" grid grid-cols-2 md:gap-5 w-full h-[calc(100vh-96px)] md:h-fit pb-10  overflow-y-auto px-6 lg:px-0 "
+            className=" grid grid-cols-2 md:gap-5 w-full h-[calc(100vh-96px)] md:h-fit pb-10  overflow-y-auto px-6 lg:px-0  bg-slate-400 pt-10 rounded-lg bg-opacity-30"
           >
             {/* User Details */}
             <div className="flex flex-col w-full md:max-w-[300px] col-span-2  md:col-span-1 gap-4 gap-x-8 gap-y-6 sm:grid-cols-2 mx-auto">
@@ -420,7 +420,7 @@ export default function Formcomponent() {
                       firstName: e.target.value,
                     });
                   }}
-                  className="bg-[#FFEBCD] text-[#8B4513] md:min-w-[280px] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm"
+                  className="bg-white text-[#3e3e3e] md:min-w-[280px] rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-semibold text-sm"
                 />
               </div>
 
@@ -444,7 +444,7 @@ export default function Formcomponent() {
                     });
                   }}
                   autoComplete="family-name"
-                  className="bg-[#FFEBCD] text-[#8B4513]  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm"
+                  className="bg-white text-[#3e3e3e]  rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-semibold text-sm"
                 />
               </div>
 
@@ -468,7 +468,7 @@ export default function Formcomponent() {
                     });
                   }}
                   autoComplete="email"
-                  className="bg-[#FFEBCD] text-[#8B4513]  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm"
+                  className="bg-white text-[#3e3e3e]  rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-semibold text-sm"
                 />
               </div>
 
@@ -492,7 +492,7 @@ export default function Formcomponent() {
                     });
                   }}
                   autoComplete="tel"
-                  className="bg-[#FFEBCD] text-[#8B4513] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm"
+                  className="bg-white text-[#3e3e3e] rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-semibold text-sm"
                 />
               </div>
 
@@ -507,7 +507,7 @@ export default function Formcomponent() {
                   id="timezoneDd"
                     value={appointmentDetails.timezone}
                     onChange={handleTimeZoneChange}
-                    className="bg-[#FFEBCD] text-[#8B4513] w-full  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm"
+                    className="bg-white text-[#3e3e3e] w-full  rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-medium text-sm"
                   >
                     {timeZones.map((zone, index) => (
                       <option key={index} value={zone}>
@@ -557,10 +557,10 @@ export default function Formcomponent() {
                           min={dateSlots.first}
                           max={dateSlots.second}
                           //   style={{ pointerEvents: "none" }}
-                          className="bg-[#FFEBCD] text-[#8B4513] w-full  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm z-40 opacity-0 absolute
+                          className="bg-white text-[#3e3e3e] w-full  rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-medium text-sm z-40 opacity-0 absolute
                           top-0"
                         />
-                        <div className="w-full bg-[#FFEBCD] text-[#8B4513] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm flex justify-between absolute
+                        <div className="w-full bg-white text-[#3e3e3e] rounded-lg px-4 py-3 md:py-2 outline-slate-400 font-medium text-sm flex justify-between absolute
                          top-0 -z-0">
                           {" "}
                           <span className="h-full w-fit ">{dateValue}</span>
@@ -607,7 +607,7 @@ export default function Formcomponent() {
               {/* Slots */}
               <div className="flex flex-wrap gap-2 w-full h-full justify-start items-start max-w-sm mx-auto">
                 <div className="flex flex-col md:flex-col-reverse gap-4 pt-10 md:p-0 w-full justify-start items-center ">
-                  {timeLoader ? (
+                  {true ? (
                     <span className="loader"></span>
                   ) : (
                     <div className="flex justify-center items-center flex-wrap gap-2">
@@ -634,9 +634,9 @@ export default function Formcomponent() {
                         } flex justify-center items-center flex-wrap gap-2`}
                       >
                         {allSlots.length === 0 ? (
-                          <p className="text-slate-700 font-semibold text-xs bg-slate-100 p-2 rounded-md flex-wrap">
+                          <p className="text-slate-700 font-semibold text-xs bg-white p-2 rounded-md flex-wrap">
                             {" "}
-                            No available slot today due to holiday/weekend
+                            No Available Slot
                           </p>
                         ) : (
                           ""
@@ -652,7 +652,7 @@ export default function Formcomponent() {
                   {!slotIdentifier ? (
                     ""
                   ) : (
-                    <div className="text-black flex flex-wrap justify-center items-center bg-slate-200 rounded-lg w-fit p-4 gap-2">
+                    <div className="text-black flex flex-wrap justify-center items-center bg-white rounded-lg w-fit p-4 gap-2">
                       <div className="flex gap-2  justify-center items-center font-semibold text-xs">
                         <div className="w-2 h-2 bg-slate-500 rounded-full"></div>{" "}
                         Booked
