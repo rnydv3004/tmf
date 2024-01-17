@@ -342,7 +342,7 @@ export default function Formcomponent() {
   };
 
   return (
-    <div className="shadow-sm bg-opacity-20 rounded-lg w-full md:w-[60%]">
+    <div className=" md:h-[105%] shadow-sm bg-opacity-20 rounded-lg w-full md:w-[60%]">
       <Link
         href={"/details"}
         className="absolute top-5 right-5 block w-fit rounded-md text-[#FFEBCD] bg-[#e1ac27] z-40 px-5 py-2.5 text-center text-sm font-semibold shadow-sm hover:bg-[#bb8f22] active:bg-[#bb8f22] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 "
@@ -390,7 +390,7 @@ export default function Formcomponent() {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center w-full">
+        <div className="flex justify-center items-center h-full w-full">
           {/* LOGO IN ABSOLUTE */}
           <div className="h-12 w-fit flex absolute top-5 left-5">
             <Image
@@ -403,7 +403,7 @@ export default function Formcomponent() {
 
           <form
             onSubmit={handleSubmit}
-            className=" grid grid-cols-2 md:gap-5 w-full h-[calc(100vh-96px)] md:h-full overflow-y-auto px-6 lg:px-0 "
+            className=" grid grid-cols-2 md:gap-5 w-full h-[calc(100vh-96px)] md:h-fit pb-10  overflow-y-auto px-6 lg:px-0 "
           >
             {/* User Details */}
             <div className="flex flex-col w-full md:max-w-[300px] col-span-2  md:col-span-1 gap-4 gap-x-8 gap-y-6 sm:grid-cols-2 mx-auto">
@@ -537,7 +537,7 @@ export default function Formcomponent() {
                       >
                         Appointment Date <span className="text-red-500">*</span>
                       </label>
-                      <div className="relative">
+                      <div className="relative mb-10">
                         <input
                           type="date"
                           value={dateValue}
@@ -575,15 +575,15 @@ export default function Formcomponent() {
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             stroke="currentColor"
                             width={"16"}
                             height={"16"}
                             
                           >
                             <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
                               d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
                             />
                           </svg>
