@@ -343,12 +343,6 @@ export default function Formcomponent() {
 
   return (
     <div className=" md:h-[105%] shadow-sm bg-opacity-20 rounded-lg w-full md:w-[60%]">
-      <Link
-        href={"/details"}
-        className="absolute top-5 right-5 block w-fit rounded-md text-[#FFEBCD] bg-[#e1ac27] z-40 px-5 py-2.5 text-center text-sm font-semibold shadow-sm hover:bg-[#bb8f22] active:bg-[#bb8f22] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 "
-      >
-        Admin
-      </Link>
       {/* <div className="mx-auto max-w-2xl text-center flex justify-center items-center flex-col gap-2">
         <p className="mt-2 text-sm md:text-base leading-5 text-gray-600">
           Book a free Appointment with our one of best tax consultants
@@ -369,8 +363,7 @@ export default function Formcomponent() {
                 </div>
                 {bookingStatus ? (
                   <h1 className="text-slate-900 text-sm lg:w-[400px] text-center font-medium flex-wrap">
-                    Thanks for booking appointment with Taxmechanic. The meeting
-                    link will be shared on mail.
+                    Thank you for scheduling an appointment with TaxMechanic. The meeting link will be shared with you via email.
                   </h1>
                 ) : (
                   <h1 className="text-red-700 text-xs text-center font-bold flex-wrap">
