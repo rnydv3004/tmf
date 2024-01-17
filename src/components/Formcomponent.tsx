@@ -342,7 +342,7 @@ export default function Formcomponent() {
   };
 
   return (
-    <div className="shadow-sm bg-opacity-20 rounded-lg w-full md:w-fit">
+    <div className="shadow-sm bg-opacity-20 rounded-lg w-full md:w-[60%]">
       <Link
         href={"/details"}
         className="absolute top-5 right-5 block w-fit rounded-md text-[#FFEBCD] bg-[#e1ac27] z-40 px-5 py-2.5 text-center text-sm font-semibold shadow-sm hover:bg-[#bb8f22] active:bg-[#bb8f22] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 "
@@ -403,18 +403,8 @@ export default function Formcomponent() {
 
           <form
             onSubmit={handleSubmit}
-            className=" grid grid-cols-2 md: gap-5 w-full h-[calc(100vh-96px)] md:h-full overflow-y-auto px-6 lg:px-0"
+            className=" grid grid-cols-2 md:gap-5 w-full h-[calc(100vh-96px)] md:h-full overflow-y-auto px-6 lg:px-0 "
           >
-            {/* BOOKK APPOINTMENT BUTTON IN ABSOLUTE */}
-            <div className="fixed bottom-5 right-5">
-              <button
-                type="submit"
-                className="block w-fit rounded-md text-[#FFEBCD] bg-[#e1ac27] z-40 px-5 py-2.5 text-center text-sm font-semibold shadow-sm hover:bg-[#bb8f22] active:bg-[#bb8f22] focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 "
-              >
-                Book Appointment
-              </button>
-            </div>
-
             {/* User Details */}
             <div className="flex flex-col w-full md:max-w-[300px] col-span-2  md:col-span-1 gap-4 gap-x-8 gap-y-6 sm:grid-cols-2 mx-auto">
               <div className="flex flex-col">
@@ -546,33 +536,53 @@ export default function Formcomponent() {
                       >
                         Appointment Date <span className="text-red-500">*</span>
                       </label>
+                      <div className="relative">
+                        <input
+                          type="date"
+                          value={dateValue}
+                          disabled={false}
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            setNoSlotIdentifier(true);
+                            setTimeLoader(true);
+                            setSlotIdentifier(true);
+                            setAppointmentDetails({
+                              ...appointmentDetails,
+                              date: newValue,
+                            });
 
-                      <input
-                        type="date"
-                        value={dateValue}
-                        disabled={false}
-                        onChange={(e) => {
-                          const newValue = e.target.value;
-                          setNoSlotIdentifier(true);
-                          setTimeLoader(true);
-                          setSlotIdentifier(true);
-                          setAppointmentDetails({
-                            ...appointmentDetails,
-                            date: newValue,
-                          });
-
-                          const timeInfo = fetchSlots(newValue);
-                          timeInfo.then((data) => {
-                            setAllSlots(data.value);
-                            setAvailableSlot(data.bookedslots);
-                            setTimeLoader(false);
-                          });
-                        }}
-                        min={dateSlots.first}
-                        max={dateSlots.second}
-                        //   style={{ pointerEvents: "none" }}
-                        className="bg-[#FFEBCD] text-[#8B4513] w-full min-w-full rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm"
-                      />
+                            const timeInfo = fetchSlots(newValue);
+                            timeInfo.then((data) => {
+                              setAllSlots(data.value);
+                              setAvailableSlot(data.bookedslots);
+                              setTimeLoader(false);
+                            });
+                          }}
+                          min={dateSlots.first}
+                          max={dateSlots.second}
+                          //   style={{ pointerEvents: "none" }}
+                          className="bg-[#FFEBCD] text-[#8B4513] w-full min-w-full rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm opacity-100 z-30"
+                        />
+                        <div className="w-full absolute top-0 -z-10 bg-[#FFEBCD] text-[#8B4513] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm">
+                          {" "}
+                          <span className="h-full w-full text-green-600">{dateValue}</span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            width={"16"}
+                            height={"16"}
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
                     </>
                   )}
                   <div className="w-[80%] h-full absolute top-0 z-10 bg-opacity-0"></div>
@@ -592,12 +602,12 @@ export default function Formcomponent() {
             </div>
 
             {/* Slots */}
-            <div className="col-span-2 md:col-span-1 flex justify-center items-center flex-col">
+            <div className="col-span-2 md:col-span-1 flex justify-center w-full items-center flex-col">
               {/* Calender */}
 
               {/* Slots */}
               <div className="flex flex-wrap gap-2 w-full h-full justify-start items-start max-w-sm mx-auto ">
-                <div className="flex flex-col md:flex-col-reverse gap-5 pt-10 pb-40 md:p-0 md:gap-9 justify-start items-center">
+                <div className="flex flex-col md:flex-col-reverse gap-4 pt-10 pb-40 md:p-0 w-full justify-start items-center ">
                   {timeLoader ? (
                     <span className="loader"></span>
                   ) : (
@@ -643,23 +653,32 @@ export default function Formcomponent() {
                   {!slotIdentifier ? (
                     ""
                   ) : (
-                    <div className="text-black flex flex-wrap justify-center items-start bg-slate-200 rounded-lg w-fit p-4 gap-2">
-                      <div className="flex gap-2 justify-center items-center font-semibold text-sm">
-                        <div className="w-10 h-5 bg-slate-500 rounded-full"></div>{" "}
-                        Booked Slot
+                    <div className="text-black flex flex-wrap justify-center items-center bg-slate-200 rounded-lg w-fit p-4 gap-2">
+                      <div className="flex gap-2  justify-center items-center font-semibold text-xs">
+                        <div className="w-2 h-2 bg-slate-500 rounded-full"></div>{" "}
+                        Booked
                       </div>
-                      <div className="flex gap-2 justify-center items-center font-semibold text-sm">
-                        <div className="w-10 h-5 bg-blue-500 rounded-full"></div>{" "}
-                        Available Slot
+                      <div className="flex gap-2 justify-center items-center font-semibold text-xs">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>{" "}
+                        Available
                       </div>
-                      <div className="flex gap-2 bg-green-600 justify-center items-center font-semibold text-sm">
-                        <div className="w-10 h-5 rounded-full"></div> Selected
-                        Slot
+                      <div className="flex gap-2 justify-center items-center font-semibold text-xs">
+                        <div className="w-2 h-2 bg-green-600 rounded-full"></div>{" "}
+                        Selected
                       </div>
                     </div>
                   )}
                 </div>
               </div>
+            </div>
+            {/* BOOKK APPOINTMENT BUTTON IN ABSOLUTE */}
+            <div className="col-span-2 mb-20 md:mb-0 md:fixed md:bottom-5 md:right-5 w-full md:w-fit">
+              <button
+                type="submit"
+                className="block w-full md:w-fit rounded-md text-[#FFEBCD] bg-[#e1ac27] z-40 px-5 py-2.5 text-center text-sm font-semibold shadow-sm hover:bg-[#bb8f22] active:bg-[#bb8f22] focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 "
+              >
+                Book Appointment
+              </button>
             </div>
           </form>
         </div>
