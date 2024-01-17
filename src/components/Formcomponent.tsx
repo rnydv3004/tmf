@@ -390,7 +390,7 @@ export default function Formcomponent() {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center  w-full">
+        <div className="flex justify-center w-full">
           {/* LOGO IN ABSOLUTE */}
           <div className="h-12 w-fit flex absolute top-5 left-5">
             <Image
@@ -403,7 +403,7 @@ export default function Formcomponent() {
 
           <form
             onSubmit={handleSubmit}
-            className=" grid grid-cols-2 md: gap-5 w-full h-[calc(100vh-96px)] md:h-full overflow-y-auto"
+            className=" grid grid-cols-2 md: gap-5 w-full h-[calc(100vh-96px)] md:h-full overflow-y-auto px-6 lg:px-0"
           >
             {/* BOOKK APPOINTMENT BUTTON IN ABSOLUTE */}
             <div className="fixed bottom-5 right-5">
@@ -538,37 +538,43 @@ export default function Formcomponent() {
 
               <div className="rounded-lg p-0 text-black font-semibold text-xs">
                 <div className="flex flex-col relative">
-                  <label
-                    htmlFor="appointmentDate"
-                    className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs"
-                  >
-                    Appointment Date <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="date"
-                    value={dateValue}
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setNoSlotIdentifier(true);
-                      setTimeLoader(true);
-                      setSlotIdentifier(true);
-                      setAppointmentDetails({
-                        ...appointmentDetails,
-                        date: newValue,
-                      });
+                  {dateSlots && dateSlots.first && (
+                    <>
+                      <label
+                        htmlFor="appointmentDate"
+                        className="bg-transparent text-slate-500 rounded-lg py-0 font-medium text-xs"
+                      >
+                        Appointment Date <span className="text-red-500">*</span>
+                      </label>
 
-                      const timeInfo = fetchSlots(newValue);
-                      timeInfo.then((data) => {
-                        setAllSlots(data.value);
-                        setAvailableSlot(data.bookedslots);
-                        setTimeLoader(false);
-                      });
-                    }}
-                    min={dateSlots.first}
-                    max={dateSlots.second}
-                    //   style={{ pointerEvents: "none" }}
-                    className="bg-[#FFEBCD] text-[#8B4513] w-full min-w-full rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm"
-                  />
+                      <input
+                        type="date"
+                        value={dateValue}
+                        disabled={false}
+                        onChange={(e) => {
+                          const newValue = e.target.value;
+                          setNoSlotIdentifier(true);
+                          setTimeLoader(true);
+                          setSlotIdentifier(true);
+                          setAppointmentDetails({
+                            ...appointmentDetails,
+                            date: newValue,
+                          });
+
+                          const timeInfo = fetchSlots(newValue);
+                          timeInfo.then((data) => {
+                            setAllSlots(data.value);
+                            setAvailableSlot(data.bookedslots);
+                            setTimeLoader(false);
+                          });
+                        }}
+                        min={dateSlots.first}
+                        max={dateSlots.second}
+                        //   style={{ pointerEvents: "none" }}
+                        className="bg-[#FFEBCD] text-[#8B4513] w-full min-w-full rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm"
+                      />
+                    </>
+                  )}
                   <div className="w-[80%] h-full absolute top-0 z-10 bg-opacity-0"></div>
                 </div>
               </div>
