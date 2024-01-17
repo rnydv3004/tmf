@@ -370,7 +370,7 @@ export default function Formcomponent() {
                 {bookingStatus ? (
                   <h1 className="text-slate-900 text-sm lg:w-[400px] text-center font-medium flex-wrap">
                     Thanks for booking appointment with Taxmechanic. The meeting
-                    link will be share on mail.
+                    link will be shared on mail.
                   </h1>
                 ) : (
                   <h1 className="text-red-700 text-xs text-center font-bold flex-wrap">
