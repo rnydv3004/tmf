@@ -612,8 +612,8 @@ export default function Formcomponent() {
               {/* Calender */}
 
               {/* Slots */}
-              <div className="flex flex-wrap gap-2 w-full h-full justify-start items-start max-w-sm mx-auto ">
-                <div className="flex flex-col md:flex-col-reverse gap-4 pt-10 pb-40 md:p-0 w-full justify-start items-center ">
+              <div className="flex flex-wrap gap-2 w-full h-full justify-start items-start max-w-sm mx-auto">
+                <div className="flex flex-col md:flex-col-reverse gap-4 pt-10 md:p-0 w-full justify-start items-center ">
                   {timeLoader ? (
                     <span className="loader"></span>
                   ) : (
@@ -676,9 +676,8 @@ export default function Formcomponent() {
                   )}
                 </div>
               </div>
-            </div>
-            {/* BOOKK APPOINTMENT BUTTON IN ABSOLUTE */}
-            <div className="col-span-2 mb-20 md:mb-0 md:fixed md:bottom-5 md:right-5 w-full md:w-fit">
+
+              <div className="col-span-2 my-10 md:my-0 md:fixed md:bottom-5 md:right-5 w-full md:w-fit">
               <button
                 type="submit"
                 className="block w-full md:w-fit rounded-md text-[#FFEBCD] bg-[#e1ac27] z-40 px-5 py-2.5 text-center text-sm font-semibold shadow-sm hover:bg-[#bb8f22] active:bg-[#bb8f22] focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 "
@@ -686,6 +685,9 @@ export default function Formcomponent() {
                 Book Appointment
               </button>
             </div>
+            </div>
+            {/* BOOKK APPOINTMENT BUTTON IN ABSOLUTE */}
+            
           </form>
         </div>
       )}
