@@ -511,6 +511,7 @@ export default function Formcomponent() {
                     Your Time Zone:
                   </p>
                   <select
+                  id="timezoneDd"
                     value={appointmentDetails.timezone}
                     onChange={handleTimeZoneChange}
                     className="bg-[#FFEBCD] text-[#8B4513] w-full  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm"

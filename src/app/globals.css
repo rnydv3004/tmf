@@ -19,9 +19,15 @@
 input[type="date"]
 {
     display:block;
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
+    -webkit-appearance: initial;
+    appearance: initial;
+    -moz-appearance: initial;
     min-height: 1.2em;
+}
+
+#timezoneDd{
+  -webkit-appearance: initial;
+  appearance: initial;
 }
 
 body {
