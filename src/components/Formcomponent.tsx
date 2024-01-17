@@ -2,15 +2,9 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import Logo from "./../../public/png.png";
 import Image from "next/image";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import dayjs from "dayjs";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { DateTime } from "luxon";
-import { addSubscription } from "@/helper/subscribe";
-import AppointmentDetails from "./AppointmentDetails";
 
 const timeZones = [
   "Asia/Kolkata",
@@ -353,11 +347,11 @@ export default function Formcomponent() {
           <div className="flex flex-col bg-white rounded-lg p-5 md:p-10 justify-center items-center gap-6 m-10">
             {!loading ? (
               <div className="flex flex-col justify-center items-center gap-5 ">
-                <div className="h-16 w-fit flex">
+                <div className="h-10 md:h-16 w-fit flex">
                   <Image
                     src={Logo}
                     alt={"Taxmechnaic Logo"}
-                    className="h-16 w-auto"
+                    className="h-10 md:h-16 w-auto"
                     sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 800px"
                   />
                 </div>
