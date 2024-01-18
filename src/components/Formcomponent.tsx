@@ -26,7 +26,7 @@ const timeZones = [
 export default function Formcomponent() {
   const [dateValue, setDateValue] = useState("yyyy-MM-dd");
   const [dialog, setDialog] = useState(false);
-  // const [initialLoader, setInitialLoader] = useState(true);
+  const [initialLoader, setInitialLoader] = useState(true);
   const [loading, setLoading] = useState(true);
   const [bookingStatus, setBookingStatus] = useState(true);
   const [dateSlots, setDateSlots]: any = useState();
@@ -290,6 +290,14 @@ export default function Formcomponent() {
       setDateSlots(data);
       setCalenderLoader(false);
     });
+
+    const timeoutFunction: () => number = () => {
+      setInitialLoader(false);
+      return 0
+    };
+    
+    setTimeout(timeoutFunction, 1000);
+
     
   }, []);
 
@@ -344,14 +352,14 @@ export default function Formcomponent() {
   };
 
   return (
-    <div className=" md:h-[105%] shadow-sm rounded-lg w-full md:w-[60%]">
-      {/* {initialLoader ? (
+    <div className=" md:h-[105%] shadow-sm bg-opacity-20 rounded-lg w-full md:w-[60%]">
+      {initialLoader ? (
         <div className="h-screen w-screen fixed top-0 left-0 overflow-hidden z-50 bg-white flex justify-center items-center">
           <div className="h-14 w-14 border-t-4 border-yellow-500 animate-spin rounded-full"></div>
         </div>
       ) : (
         ""
-      )} */}
+      )}
 
       {dialog ? (
         <div className="flex justify-center items-center w-screen h-screen absolute top-0 bottom-0 left-0 right-0 z-40">
