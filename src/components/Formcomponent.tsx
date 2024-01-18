@@ -26,6 +26,7 @@ const timeZones = [
 export default function Formcomponent() {
   const [dateValue, setDateValue] = useState("yyyy-MM-dd");
   const [dialog, setDialog] = useState(false);
+  // const [initialLoader, setInitialLoader] = useState(true);
   const [loading, setLoading] = useState(true);
   const [bookingStatus, setBookingStatus] = useState(true);
   const [dateSlots, setDateSlots]: any = useState();
@@ -289,6 +290,7 @@ export default function Formcomponent() {
       setDateSlots(data);
       setCalenderLoader(false);
     });
+    
   }, []);
 
   async function fetchSlots(checkDate: any) {
@@ -342,14 +344,17 @@ export default function Formcomponent() {
   };
 
   return (
-    <div className=" md:h-[105%] shadow-sm bg-opacity-20 rounded-lg w-full md:w-[60%]">
-      {/* <div className="mx-auto max-w-2xl text-center flex justify-center items-center flex-col gap-2">
-        <p className="mt-2 text-sm md:text-base leading-5 text-gray-600">
-          Book a free Appointment with our one of best tax consultants
-        </p>
-      </div> */}
+    <div className=" md:h-[105%] shadow-sm rounded-lg w-full md:w-[60%]">
+      {/* {initialLoader ? (
+        <div className="h-screen w-screen fixed top-0 left-0 overflow-hidden z-50 bg-white flex justify-center items-center">
+          <div className="h-14 w-14 border-t-4 border-yellow-500 animate-spin rounded-full"></div>
+        </div>
+      ) : (
+        ""
+      )} */}
+
       {dialog ? (
-        <div className="flex justify-center items-center w-screen h-screen absolute top-0 bottom-0 left-0 right-0 z-50">
+        <div className="flex justify-center items-center w-screen h-screen absolute top-0 bottom-0 left-0 right-0 z-40">
           <div className="flex flex-col bg-white rounded-lg p-5 md:p-10 justify-center items-center gap-6 m-10">
             {!loading ? (
               <div className="flex flex-col justify-center items-center gap-5 ">
@@ -600,7 +605,7 @@ export default function Formcomponent() {
 
                 {calenderLoader ? (
                   <div className="flex flex-col gap-2 justify-center items-center">
-                    <span className="loader absolute w-full h-full top-0 bottom-0 left-0 right-0 z-50"></span>
+                    <span className="loader absolute w-full h-full top-0 bottom-0 left-0 right-0 z-40"></span>
                     <span className="text-xs font-semibold text-amber-600">
                       Loading Available Slots...
                     </span>
