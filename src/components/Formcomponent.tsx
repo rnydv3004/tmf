@@ -24,7 +24,7 @@ const timeZones = [
 ];
 
 export default function Formcomponent() {
-  const [dateValue, setDateValue] = useState('yyyy-MM-dd');
+  const [dateValue, setDateValue] = useState("yyyy-MM-dd");
   const [dialog, setDialog] = useState(false);
   const [loading, setLoading] = useState(true);
   const [bookingStatus, setBookingStatus] = useState(true);
@@ -363,7 +363,8 @@ export default function Formcomponent() {
                 </div>
                 {bookingStatus ? (
                   <h1 className="text-slate-900 text-sm lg:w-[400px] text-center font-medium flex-wrap">
-                    Thank you for scheduling an appointment with TaxMechanic. The meeting link will be shared with you via email.
+                    Thank you for scheduling an appointment with TaxMechanic.
+                    The meeting link will be shared with you via email.
                   </h1>
                 ) : (
                   <h1 className="text-red-700 text-xs text-center font-bold flex-wrap">
@@ -383,9 +384,9 @@ export default function Formcomponent() {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center items-center h-full w-full">
+        <div className="flex justify-center items-center h-full w-full ">
           {/* LOGO IN ABSOLUTE */}
-          <div className="h-12 w-fit flex absolute top-5 left-5">
+          <div className="h-12 w-fit flex absolute top-3 left-3 md:top-5 md:left-5">
             <Image
               src={Logo}
               alt={"Taxmechnaic Logo"}
@@ -396,7 +397,7 @@ export default function Formcomponent() {
 
           <form
             onSubmit={handleSubmit}
-            className=" grid grid-cols-2 md:gap-5 w-full h-[calc(100vh-96px)] md:h-fit pb-10  overflow-y-auto px-6 lg:px-0  bg-slate-400 pt-10 rounded-lg bg-opacity-30"
+            className=" grid grid-cols-2 md:gap-5 w-full h-[calc(100vh-96px)] md:h-[65%] pb-10  overflow-y-auto px-6 lg:px-0  bg-slate-400 pt-10 rounded-lg bg-opacity-20"
           >
             {/* User Details */}
             <div className="flex flex-col w-full md:max-w-[300px] col-span-2  md:col-span-1 gap-4 gap-x-8 gap-y-6 sm:grid-cols-2 mx-auto">
@@ -420,7 +421,7 @@ export default function Formcomponent() {
                       firstName: e.target.value,
                     });
                   }}
-                  className="bg-white text-[#3e3e3e] md:min-w-[280px] rounded-lg px-4 py-3 md:py-2  font-semibold text-sm"
+                  className="bg-white text-[#3e3e3e] md:min-w-[280px] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-semibold text-sm"
                 />
               </div>
 
@@ -504,7 +505,7 @@ export default function Formcomponent() {
                     Your Time Zone:
                   </p>
                   <select
-                  id="timezoneDd"
+                    id="timezoneDd"
                     value={appointmentDetails.timezone}
                     onChange={handleTimeZoneChange}
                     className="bg-white text-[#3e3e3e] w-full  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm"
@@ -517,100 +518,103 @@ export default function Formcomponent() {
                   </select>
                 </div>
               </div>
-
-              {/* Appointment Date */}
-
-              <div className="rounded-lg p-0 text-black">
-                <div className="flex flex-col relative">
-                  {dateSlots && dateSlots.first && (
-                    <>
-                      <label
-                        htmlFor="appointmentDate"
-                        className="bg-transparent text-slate-700 rounded-lg py-0 font-medium text-xs"
-                      >
-                        Appointment Date <span className="text-red-500">*</span>
-                      </label>
-                      <div className="relative mb-10">
-                        <input
-                          type="date"
-                          value={dateValue}
-                          disabled={false}
-                          onChange={(e) => {
-                            const newValue = e.target.value;
-                            setNoSlotIdentifier(true);
-                            setTimeLoader(true);
-                            setSlotIdentifier(true);
-                            setAppointmentDetails({
-                              ...appointmentDetails,
-                              date: newValue,
-                            });
-
-                            setDateValue(e.target.value)
-
-                            const timeInfo = fetchSlots(newValue);
-                            timeInfo.then((data) => {
-                              setAllSlots(data.value);
-                              setAvailableSlot(data.bookedslots);
-                              setTimeLoader(false);
-                            });
-                          }}
-                          min={dateSlots.first}
-                          max={dateSlots.second}
-                          //   style={{ pointerEvents: "none" }}
-                          className="bg-white text-[#3e3e3e] w-full  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm z-40 opacity-0 absolute
-                          top-0"
-                        />
-                        <div className="w-full bg-white text-[#3e3e3e] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm flex justify-between absolute
-                         top-0 -z-0">
-                          {" "}
-                          <span className="h-full w-fit ">{dateValue}</span>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            width={"16"}
-                            height={"16"}
-                            
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                  <div className="w-[80%] h-full absolute top-0 z-10 bg-opacity-0"></div>
-                </div>
-              </div>
-
-              {calenderLoader ? (
-                <div className="flex flex-col gap-2 justify-center items-center">
-                  <span className="loader absolute w-full h-full top-0 bottom-0 left-0 right-0 z-50"></span>
-                  <span className="text-xs font-semibold text-amber-600">
-                    Loading Available Slots...
-                  </span>
-                </div>
-              ) : (
-                ""
-              )}
             </div>
 
             {/* Slots */}
-            <div className="col-span-2 md:col-span-1 flex justify-center w-full items-center flex-col">
+            <div className="flex flex-col w-full md:max-w-[300px] col-span-2 md:col-span-1 gap-4 gap-x-8 gap-y-6 sm:grid-cols-2 mx-auto">
               {/* Calender */}
 
               {/* Slots */}
-              <div className="flex flex-wrap gap-2 w-full h-full justify-start items-start max-w-sm mx-auto">
-                <div className="flex flex-col md:flex-col-reverse gap-4 pt-10 md:p-0 w-full justify-start items-center ">
+              <div className="flex flex-wrap gap-2 w-full h-full justify-center items-start max-w-sm mx-auto mt-5 md:mt-0">
+                {/* Appointment Date */}
+
+                <div className="rounded-lg p-0 text-black w-full">
+                  <div className="flex flex-col relative mb-5 md:mb-0">
+                    {dateSlots && dateSlots.first && (
+                      <>
+                        <label
+                          htmlFor="appointmentDate"
+                          className="bg-transparent text-slate-700 rounded-lg py-0 font-medium text-xs"
+                        >
+                          Appointment Date{" "}
+                          <span className="text-red-500">*</span>
+                        </label>
+                        <div className="relative mb-10">
+                          <input
+                            type="date"
+                            value={dateValue}
+                            disabled={false}
+                            onChange={(e) => {
+                              const newValue = e.target.value;
+                              setNoSlotIdentifier(true);
+                              setTimeLoader(true);
+                              setSlotIdentifier(true);
+                              setAppointmentDetails({
+                                ...appointmentDetails,
+                                date: newValue,
+                              });
+
+                              setDateValue(e.target.value);
+
+                              const timeInfo = fetchSlots(newValue);
+                              timeInfo.then((data) => {
+                                setAllSlots(data.value);
+                                setAvailableSlot(data.bookedslots);
+                                setTimeLoader(false);
+                              });
+                            }}
+                            min={dateSlots.first}
+                            max={dateSlots.second}
+                            //   style={{ pointerEvents: "none" }}
+                            className="bg-white text-[#3e3e3e] w-full  rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm z-40 opacity-0 absolute
+                          top-0"
+                          />
+                          <div
+                            className="w-full bg-white text-[#3e3e3e] rounded-lg px-4 py-3 md:py-2 outline-[#FFDEAD] font-medium text-sm flex justify-between absolute
+                         top-0 -z-0"
+                          >
+                            {" "}
+                            <span className="h-full w-fit ">{dateValue}</span>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              width={"16"}
+                              height={"16"}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                    <div className="w-[80%] h-full absolute top-0 z-10 bg-opacity-0"></div>
+                  </div>
+                </div>
+
+                {calenderLoader ? (
+                  <div className="flex flex-col gap-2 justify-center items-center">
+                    <span className="loader absolute w-full h-full top-0 bottom-0 left-0 right-0 z-50"></span>
+                    <span className="text-xs font-semibold text-amber-600">
+                      Loading Available Slots...
+                    </span>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div
+                  className={`flex flex-col gap-4 pt-3 md:p-0   w-full justify-start items-center `}
+                >
                   {timeLoader ? (
                     <span className="loader"></span>
                   ) : (
-                    <div className="flex justify-center items-center flex-wrap gap-2">
+                    <div className="flex bg-opacity-70 py-4 rounded-lg bg-white justify-center items-center flex-wrap gap-2">
                       {allSlots.map((time, index) => {
                         const isAvailable = availableSlot.includes(time);
 
@@ -652,7 +656,7 @@ export default function Formcomponent() {
                   {!slotIdentifier ? (
                     ""
                   ) : (
-                    <div className="text-black flex flex-wrap justify-center items-center bg-slate-200 rounded-lg w-fit p-4 gap-2">
+                    <div className="text-black flex flex-wrap justify-center items-center bg-white rounded-lg w-fit p-4 gap-2 mb-4 md:mb-0">
                       <div className="flex gap-2  justify-center items-center font-semibold text-xs">
                         <div className="w-2 h-2 bg-slate-500 rounded-full"></div>{" "}
                         Booked
@@ -670,17 +674,16 @@ export default function Formcomponent() {
                 </div>
               </div>
 
-              <div className="col-span-2 my-10 md:my-0 md:fixed md:bottom-5 md:right-5 w-full md:w-fit">
-              <button
-                type="submit"
-                className="block w-full md:w-fit rounded-md text-[#FFEBCD] bg-[#e1ac27] z-40 px-5 py-2.5 text-center text-sm font-semibold shadow-sm hover:bg-[#bb8f22] active:bg-[#bb8f22] focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 "
-              >
-                Book Appointment
-              </button>
-            </div>
+              <div className="col-span-2 my-10 md:my-0 w-full md:h-fit md:w-fit flex justify-center md:fixed md:bottom-5 md:right-5">
+                <button
+                  type="submit"
+                  className="block w-full rounded-md text-[#FFEBCD] bg-[#e1ac27] z-40 px-5 py-2.5 text-center text-sm font-semibold shadow-sm hover:bg-[#bb8f22] active:bg-[#bb8f22] focus-visible:outline  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 "
+                >
+                  Book Appointment
+                </button>
+              </div>
             </div>
             {/* BOOKK APPOINTMENT BUTTON IN ABSOLUTE */}
-            
           </form>
         </div>
       )}
