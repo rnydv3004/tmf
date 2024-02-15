@@ -52,8 +52,6 @@ Sunny Singh
 Tax Consultant`
 
         console.log("Hi this is a mail")
-        console.log("Email:", process.env.NODEMAILER_EMAIL)
-        console.log("PWD:", process.env.NODEMAILER_PW)
 
         try {
             var transporter = await nodemailer.createTransport({
