@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
 
         const url = `https://api.beehiiv.com/v2/publications/${process.env.BEEHIIV_PUB}/subscriptions`;
 
-        console.log("URL:",url)
+        // console.log("URL:",url)
         const options = {
             method: 'POST',
             headers: {
@@ -21,11 +21,11 @@ export async function POST(request: NextRequest) {
             body: _body
           };
 
-        console.log("Options:",options)
+        // console.log("Options:",options)
 
         const response = await fetch(url, options);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         return NextResponse.json({ message: "Email added" }, { status: 200 })
 
     } catch (error: any) {

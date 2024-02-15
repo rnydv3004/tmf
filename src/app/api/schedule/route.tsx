@@ -16,11 +16,11 @@ export async function POST(request: NextRequest) {
             { zone: "America/Toronto" }
         );
 
-        console.log("Appointment Toronto time:", appointmentDateTimeTornoto)
+        // console.log("Appointment Toronto time:", appointmentDateTimeTornoto)
 
         // Time in server time zone
         const serverTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        console.log('Server Time Zone:', serverTimeZone);
+        // console.log('Server Time Zone:', serverTimeZone);
 
         const appointmentDateTimeServer = appointmentDateTimeTornoto.setZone(serverTimeZone);  // appointment time (server)
         const currentServerTime = DateTime.now().setZone(serverTimeZone)  // current time (server)
@@ -28,14 +28,14 @@ export async function POST(request: NextRequest) {
         const timeDifference = appointmentDateTimeServer.diff(currentServerTime);   // diff btwn appointmnet and current time (server both)    
         const twentyFourHours = Duration.fromObject({ hours: 20 });  // Create a Luxon Duration representing 20 hours
 
-        console.log("Time difference:",timeDifference.as('milliseconds'))
-        console.log("Twenty Hours:",twentyFourHours.as('milliseconds'))
+        // console.log("Time difference:",timeDifference.as('milliseconds'))
+        // console.log("Twenty Hours:",twentyFourHours.as('milliseconds'))
 
         // Compare the time difference with 20 hours
         if (timeDifference >= twentyFourHours) {
 
             const oneDayBefore = appointmentDateTimeServer.minus({ hours: 20 })
-            console.log("Schedule reminder mail for One day before:", oneDayBefore)
+            // console.log("Schedule reminder mail for One day before:", oneDayBefore)
 
             const job1 = schedule.scheduleJob(oneDayBefore.toJSDate(), function () {
                 mailOneDayBefore(firstName, email, date, clienttime, time, 1)
@@ -44,13 +44,13 @@ export async function POST(request: NextRequest) {
 
         // 4 huour before time of appointment
         const _4hoursBefore = appointmentDateTimeServer.minus({ hours: 4 })
-        console.log("Schedule reminder mail for 4 hours before:", _4hoursBefore)
+        // console.log("Schedule reminder mail for 4 hours before:", _4hoursBefore)
 
         const job2 = schedule.scheduleJob(_4hoursBefore.toJSDate(), function () {
             mailOneDayBefore(firstName, email, date, clienttime, time, 0)
         });
 
-        console.log("Staus:",job2.status)
+        // console.log("Staus:",job2.status)
 
         return NextResponse.json({
             message: "Appointment Booked Successfully!",
