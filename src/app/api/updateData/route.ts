@@ -6,7 +6,6 @@ const firebaseConfig = {
     databaseURL: process.env.DB_URL,
 };
 
-// Initialize Firebase
 const fbApp = initializeApp(firebaseConfig);
 
 // Initialize Realtime Database and get a reference to the service
