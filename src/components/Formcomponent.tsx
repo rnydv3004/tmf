@@ -293,12 +293,10 @@ export default function Formcomponent() {
 
     const timeoutFunction: () => number = () => {
       setInitialLoader(false);
-      return 0
+      return 0;
     };
-    
-    setTimeout(timeoutFunction, 1000);
 
-    
+    setTimeout(timeoutFunction, 1000);
   }, []);
 
   async function fetchSlots(checkDate: any) {
@@ -397,7 +395,7 @@ export default function Formcomponent() {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center items-center h-full w-full ">
+        <div className="flex justify-center items-center h-full w-full relative">
           {/* LOGO IN ABSOLUTE */}
           <div className="h-12 w-fit flex absolute top-3 left-3 md:top-5 md:left-5">
             <Image
@@ -694,6 +692,21 @@ export default function Formcomponent() {
                 >
                   Book Appointment
                 </button>
+              </div>
+
+              <div className="flex flex-col justify-center items-center gap-0 w-full lg:absolute lg:bottom-10 lg:left-5">
+                <p className="text-slate-500 text-xs lg:text-[10px] font-medium">
+                  Developed & designed by
+                </p>
+                {/* <Image className="h-12 w-fit" src={MythVortex} alt={'Mythvortex'}/> */}
+                <Link
+                  className="text-base font-bold text-blue-600"
+                  href={"https://mythvortex.com/"}
+                  target="_blank"
+                >
+                  <span className="text-slate-400">MYTH</span>
+                  <span>VORTEX</span>
+                </Link>
               </div>
             </div>
             {/* BOOKK APPOINTMENT BUTTON IN ABSOLUTE */}
