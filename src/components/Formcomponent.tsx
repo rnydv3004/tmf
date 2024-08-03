@@ -395,7 +395,7 @@ export default function Formcomponent() {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center items-center h-full w-full relative">
+        <div className="flex justify-center items-center h-full w-full ">
           {/* LOGO IN ABSOLUTE */}
           <div className="h-12 w-fit flex absolute top-3 left-3 md:top-5 md:left-5">
             <Image
@@ -408,7 +408,7 @@ export default function Formcomponent() {
 
           <form
             onSubmit={handleSubmit}
-            className=" grid grid-cols-2 md:gap-5 w-full h-[calc(100vh-96px)] md:h-[65%] pb-10  overflow-y-auto px-6 lg:px-0  bg-slate-400 pt-10 rounded-lg bg-opacity-20"
+            className="fixed grid grid-cols-2 md:gap-5 w-full h-[calc(100vh-96px)] md:h-[65%] pb-10  overflow-y-auto px-6 lg:px-0  bg-slate-400 pt-10 rounded-lg bg-opacity-20"
           >
             {/* User Details */}
             <div className="flex flex-col w-full md:max-w-[300px] col-span-2  md:col-span-1 gap-4 gap-x-8 gap-y-6 sm:grid-cols-2 mx-auto">
